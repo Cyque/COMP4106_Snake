@@ -30,13 +30,7 @@ namespace AI_Snake
         /// <param name="direction"></param>
         public void move(Char direction)
         {
-            //move the head and all tail pieces
-            Point lastPoint = body[body.Count - 1];
 
-            for (int i = body.Count - 1; i >= 1; i--)
-            {
-                body[i] = body[i - 1];
-            }
 
             if (direction == 'N')
                 body[0].Offset(new Point(0, -1));
@@ -46,6 +40,15 @@ namespace AI_Snake
                 body[0].Offset(new Point(1, 0));
             else if (direction == 'W')
                 body[0].Offset(new Point(-1, 0));
+
+            //move the head and all tail pieces
+            Point lastPoint = new Point(body[body.Count - 1].X, body[body.Count - 1].Y);
+
+            for (int i = body.Count - 1; i >= 1; i--)
+            {
+                body[i] = body[i - 1];
+            }
+
 
 
             if (body.Count < maxLength)

@@ -1,4 +1,5 @@
-﻿namespace AI_Snake
+﻿using System.Windows.Forms;
+namespace AI_Snake
 {
     partial class GameForm
     {
@@ -28,7 +29,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.pnlOptions = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.nudTimerSpeed = new System.Windows.Forms.NumericUpDown();
@@ -51,7 +51,6 @@
             this.radDepth = new System.Windows.Forms.RadioButton();
             this.radBreadth = new System.Windows.Forms.RadioButton();
             this.pnlGame = new System.Windows.Forms.Panel();
-            this.tmrGameAI = new System.Windows.Forms.Timer(this.components);
             this.pnlOptions.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimerSpeed)).BeginInit();
@@ -348,11 +347,6 @@
             this.pnlGame.TabIndex = 1;
             this.pnlGame.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlGame_Paint);
             // 
-            // tmrGameAI
-            // 
-            this.tmrGameAI.Enabled = true;
-            this.tmrGameAI.Tick += new System.EventHandler(this.tmrGameAI_Tick);
-            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -363,6 +357,8 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GameForm";
             this.Text = "Damian\'s Snake Game With AI";
+            this.KeyPreview = true;
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GameForm_KeyPress);
             this.pnlOptions.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudTimerSpeed)).EndInit();

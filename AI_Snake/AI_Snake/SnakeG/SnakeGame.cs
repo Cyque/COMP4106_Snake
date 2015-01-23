@@ -32,6 +32,7 @@ namespace AI_Snake
 
         public void initialize()
         {
+            updateTiles();
             OnGameChanged(tiles);
         }
 
@@ -56,17 +57,46 @@ namespace AI_Snake
         }
 
         /// <summary>
-        /// Moves = N E S W
+        /// updates the tiles with the current snake position
         /// </summary>
-        /// <param name="move"></param>
-        private void makeMove(int snakeIndex, Char move)
+        private void updateTiles()
         {
+            for (int y = 0; y < tiles.GetLength(1); y++)
+            {
+                for (int x = 0; x < tiles.GetLength(0); x++)
+                {
+                    if (tiles[x, y] >= 2)
+                    {
+                        tiles[x, y] = 0;
+                    }
+                }
+            }
 
-
+            for (int i = 0; i < snakes.Count; i++)
+            {
+                for (int s = 1; s < snakes[i].Body.Count - 1; s++)
+                {
+                    tiles[snakes[i].Body[s].X, snakes[i].Body[s].Y] = 3; // body
+                }
+                if (snakes[i].Body.Count > 1)
+                    tiles[snakes[i].Body[snakes[i].Body.Count - 1].X, snakes[i].Body[snakes[i].Body.Count - 1].Y] = 2; // tail
+                      
+                tiles[snakes[i].Body[0].X, snakes[i].Body[0].Y] = 2; // head
+            }
 
         }
 
-        private void makeMove(Char move)
+        /// <summary>
+        /// Moves = N E S W
+        /// </summary>
+        /// <param name="move"></param>
+        public void makeMove(int snakeIndex, Char move)
+        {
+            snakes[snakeIndex].move(move);
+            updateTiles();
+        }
+
+        public void makeMove(Char move)
         {
             makeMove(0, move);
         }

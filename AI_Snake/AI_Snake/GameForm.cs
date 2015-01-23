@@ -18,6 +18,9 @@ namespace AI_Snake
         public GameForm()
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint |
+                      ControlStyles.Opaque |
+                      ControlStyles.OptimizedDoubleBuffer, true);
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
@@ -84,6 +87,25 @@ namespace AI_Snake
         private void tmrGameAI_Tick(object sender, EventArgs e)
         {
             pnlGame.Invalidate();
+        }
+        private void GameForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar.Equals('w'))
+            {
+                game.makeMove('N');
+            }
+            else if (e.KeyChar.Equals('s'))
+            {
+                game.makeMove('S');
+            }
+            else if (e.KeyChar.Equals('a'))
+            {
+                game.makeMove('W');
+            }
+            else if (e.KeyChar.Equals('d'))
+            {
+                game.makeMove('E');
+            }
         }
 
     }
