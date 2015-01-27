@@ -51,6 +51,8 @@ namespace AI_Snake
             this.radDepth = new System.Windows.Forms.RadioButton();
             this.radBreadth = new System.Windows.Forms.RadioButton();
             this.pnlGame = new System.Windows.Forms.Panel();
+            this.stsGame = new System.Windows.Forms.StatusStrip();
+            this.lblGameStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlOptions.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimerSpeed)).BeginInit();
@@ -61,6 +63,8 @@ namespace AI_Snake
             ((System.ComponentModel.ISupportInitialize)(this.nudWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSnakeLength)).BeginInit();
             this.grpMode.SuspendLayout();
+            this.pnlGame.SuspendLayout();
+            this.stsGame.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlOptions
@@ -340,12 +344,27 @@ namespace AI_Snake
             // pnlGame
             // 
             this.pnlGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.pnlGame.Controls.Add(this.stsGame);
             this.pnlGame.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlGame.Location = new System.Drawing.Point(0, 0);
             this.pnlGame.Name = "pnlGame";
             this.pnlGame.Size = new System.Drawing.Size(774, 478);
             this.pnlGame.TabIndex = 1;
             this.pnlGame.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlGame_Paint);
+            // 
+            // stsGame
+            // 
+            this.stsGame.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblGameStatus});
+            this.stsGame.Location = new System.Drawing.Point(0, 456);
+            this.stsGame.Name = "stsGame";
+            this.stsGame.Size = new System.Drawing.Size(774, 22);
+            this.stsGame.TabIndex = 0;
+            // 
+            // lblGameStatus
+            // 
+            this.lblGameStatus.Name = "lblGameStatus";
+            this.lblGameStatus.Size = new System.Drawing.Size(0, 17);
             // 
             // GameForm
             // 
@@ -354,10 +373,10 @@ namespace AI_Snake
             this.ClientSize = new System.Drawing.Size(989, 478);
             this.Controls.Add(this.pnlGame);
             this.Controls.Add(this.pnlOptions);
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GameForm";
             this.Text = "Damian\'s Snake Game With AI";
-            this.KeyPreview = true;
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GameForm_KeyPress);
             this.pnlOptions.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -372,6 +391,10 @@ namespace AI_Snake
             ((System.ComponentModel.ISupportInitialize)(this.nudSnakeLength)).EndInit();
             this.grpMode.ResumeLayout(false);
             this.grpMode.PerformLayout();
+            this.pnlGame.ResumeLayout(false);
+            this.pnlGame.PerformLayout();
+            this.stsGame.ResumeLayout(false);
+            this.stsGame.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -401,6 +424,8 @@ namespace AI_Snake
         private System.Windows.Forms.Timer tmrGameAI;
         private System.Windows.Forms.NumericUpDown nudNumbSnakes;
         private System.Windows.Forms.Label label3;
+        private StatusStrip stsGame;
+        private ToolStripStatusLabel lblGameStatus;
     }
 }
 

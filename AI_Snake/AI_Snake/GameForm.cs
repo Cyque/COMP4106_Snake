@@ -27,7 +27,10 @@ namespace AI_Snake
         {
             game = new SnakeGame(new Point((int)nudWidth.Value, (int)nudHeight.Value), (int)nudSnakeLength.Value, (int)nudNumbSnakes.Value);
             game.OnGameChanged += new SnakeGame.gameChangedHandler(drawGame);
+            game.OnGameOver += new SnakeGame.gameOverHandler(gameOver);
             game.initialize();
+
+            lblGameStatus.Text = "GAME STARTED."; 
         }
 
         private void drawGame(int [,] tileData)
@@ -36,6 +39,10 @@ namespace AI_Snake
             pnlGame.Invalidate(); //redraw
         }
 
+        private void gameOver(int snakeLost)
+        {
+            lblGameStatus.Text = "GAME OVER. Snake " + snakeLost + " lost."; 
+        }
 
         private void nudTimerSpeed_ValueChanged(object sender, EventArgs e)
         {
@@ -88,6 +95,7 @@ namespace AI_Snake
         {
             pnlGame.Invalidate();
         }
+       
         private void GameForm_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar.Equals('w'))
