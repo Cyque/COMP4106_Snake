@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace AI_Snake
 {
-    public class SnakeGame
+    public class SnakeGame2
     {
         public static Random rndGen = new Random();
 
@@ -20,7 +20,7 @@ namespace AI_Snake
         int[,] tiles;
         List<Snake> snakes;
 
-        public SnakeGame(Point size, int snakeLength, int numberOfSnakes)
+        public SnakeGame2(Point size, int snakeLength, int numberOfSnakes)
         {
             tiles = new int[size.X, size.Y];
             createBorder();

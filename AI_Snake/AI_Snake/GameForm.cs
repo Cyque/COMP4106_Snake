@@ -11,7 +11,7 @@ namespace AI_Snake
 {
     public partial class GameForm : Form
     {
-        SnakeGame game;
+        SnakeGame2 game;
 
         int[,] lastTileData;
 
@@ -25,9 +25,9 @@ namespace AI_Snake
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            game = new SnakeGame(new Point((int)nudWidth.Value, (int)nudHeight.Value), (int)nudSnakeLength.Value, (int)nudNumbSnakes.Value);
-            game.OnGameChanged += new SnakeGame.gameChangedHandler(drawGame);
-            game.OnGameOver += new SnakeGame.gameOverHandler(gameOver);
+            game = new SnakeGame2(new Point((int)nudWidth.Value, (int)nudHeight.Value), (int)nudSnakeLength.Value, (int)nudNumbSnakes.Value);
+            game.OnGameChanged += new SnakeGame2.gameChangedHandler(drawGame);
+            game.OnGameOver += new SnakeGame2.gameOverHandler(gameOver);
             game.initialize();
 
             lblGameStatus.Text = "GAME STARTED."; 
@@ -95,25 +95,26 @@ namespace AI_Snake
         {
             pnlGame.Invalidate();
         }
-       
+
         private void GameForm_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar.Equals('w'))
-            {
-                game.makeMove('N');
-            }
-            else if (e.KeyChar.Equals('s'))
-            {
-                game.makeMove('S');
-            }
-            else if (e.KeyChar.Equals('a'))
-            {
-                game.makeMove('W');
-            }
-            else if (e.KeyChar.Equals('d'))
-            {
-                game.makeMove('E');
-            }
+            if (game != null)
+                if (e.KeyChar.Equals('w'))
+                {
+                    game.makeMove('N');
+                }
+                else if (e.KeyChar.Equals('s'))
+                {
+                    game.makeMove('S');
+                }
+                else if (e.KeyChar.Equals('a'))
+                {
+                    game.makeMove('W');
+                }
+                else if (e.KeyChar.Equals('d'))
+                {
+                    game.makeMove('E');
+                }
         }
 
     }
