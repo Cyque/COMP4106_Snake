@@ -7,45 +7,35 @@ namespace AI_Snake
 {
     public abstract class Game
     {
-        protected GameState gameState;
 
-        public delegate void gameChangedHandler(GameState gameState);
-        public delegate void gameOverHandler(int player);
+        public Game()
+        { }
 
-        public event gameChangedHandler OnGameChanged;
-        public event gameOverHandler OnGameOver;
-
-
-        public Game(GameState gameState)
-        {
-            this.gameState = gameState;
-        }
-
-        public abstract GameState makeMove(int player, Object move);
+        public abstract GameState makeMove(GameState gameState, int player, Object move);
 
         /// <summary>
         /// Creates a new gamestate for the game.
         /// </summary>
         /// <param name="move"></param>
         /// <returns>the new gamestate</returns>
-        public GameState makeMove(Object move)
+        public GameState makeMove(GameState gameState, Object move)
         {
-            gameState = makeMove(0, move);
-            OnGameChanged(gameState);
-            return gameState;
+            if(isGameOver(gameState) != -1)
+                return gameState;
+
+            GameState newS = makeMove(gameState, 0, move);
+            return newS;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns> -1 = game not over, [0 1 2...] index of winning player</returns>
-        public int isGameOver()
+        public int isGameOver(GameState gameState)
         {
-            int result = calculateGameOver();
-            OnGameOver(result);
-            return result;
+            return calculateGameOver(gameState);
         }
 
-        protected abstract int calculateGameOver();
+        protected abstract int calculateGameOver(GameState gameState);
     }
 }

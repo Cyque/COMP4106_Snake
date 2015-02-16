@@ -11,7 +11,8 @@ namespace AI_Snake
 {
     public partial class GameForm : Form
     {
-        SnakeGame2 game;
+        SnakeGameState gameState;
+        SnakeGame game;
 
         int[,] lastTileData;
 
@@ -25,23 +26,49 @@ namespace AI_Snake
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            game = new SnakeGame2(new Point((int)nudWidth.Value, (int)nudHeight.Value), (int)nudSnakeLength.Value, (int)nudNumbSnakes.Value);
-            game.OnGameChanged += new SnakeGame2.gameChangedHandler(drawGame);
-            game.OnGameOver += new SnakeGame2.gameOverHandler(gameOver);
-            game.initialize();
+            game = new SnakeGame();
+            gameState = game.createInitialState(new Point((int)nudWidth.Value, (int)nudHeight.Value), (int)nudSnakeLength.Value, (int)nudNumbSnakes.Value, (int) nudBlocks.Value);
 
-            lblGameStatus.Text = "GAME STARTED."; 
+            lblGameStatus.Text = "GAME STARTED.";
+            this.drawGame();
         }
 
-        private void drawGame(int [,] tileData)
+        private void drawGame()
         {
-            lastTileData = tileData;
+            lastTileData = createTiles();
             pnlGame.Invalidate(); //redraw
+        }
+
+        private int[,] createTiles()
+        {
+            int[,] tiles = new int[gameState.Size.Y, gameState.Size.X];
+
+            for (int i = 0; i < gameState.Blocks.Count; i++)
+                tiles[gameState.Blocks[i].Y, gameState.Blocks[i].X] = 1;
+
+            tiles[gameState.Food.Y, gameState.Food.X] = 5;
+
+            for (int i = 0; i < gameState.Blocks.Count; i++)
+                tiles[gameState.Blocks[i].Y, gameState.Blocks[i].X] = 1;
+
+
+            for (int i = 0; i < gameState.Snakes.Count; i++)
+            {
+                for (int s = 0; s < gameState.Snakes[i].Body.Count; s++)                
+                    tiles[gameState.Snakes[i].Body[s].Y, gameState.Snakes[i].Body[s].X] = 3;
+
+
+                tiles[gameState.Snakes[i].Tail.Y, gameState.Snakes[i].Tail.X] = 4;
+                tiles[gameState.Snakes[i].Head.Y, gameState.Snakes[i].Head.X] = 2;
+            }
+            
+
+            return tiles;
         }
 
         private void gameOver(int snakeLost)
         {
-            lblGameStatus.Text = "GAME OVER. Snake " + snakeLost + " lost."; 
+            lblGameStatus.Text = "GAME OVER. Snake " + snakeLost + " lost.";
         }
 
         private void nudTimerSpeed_ValueChanged(object sender, EventArgs e)
@@ -59,16 +86,16 @@ namespace AI_Snake
                 int widthTotal = pnlGame.Width - borderWidthPx * 2;
                 int heightTotal = pnlGame.Height - borderWidthPx * 2;
 
-                
+
                 int widthBox = widthTotal / lastTileData.GetLength(0);
                 int heightBox = heightTotal / lastTileData.GetLength(1);
                 int boxSize = Math.Min(widthBox, heightBox);
 
-                for (int y = 0; y < lastTileData.GetLength(1); y++)
-                    for (int x = 0; x < lastTileData.GetLength(0); x++)
+                for (int y = 0; y < lastTileData.GetLength(0); y++)
+                    for (int x = 0; x < lastTileData.GetLength(1); x++)
                     {
                         Brush thisBrush = Brushes.White;
-                        switch (lastTileData[x, y])
+                        switch (lastTileData[y, x])
                         {
                             case 0:
                                 thisBrush = Brushes.White; // empty
@@ -85,6 +112,9 @@ namespace AI_Snake
                             case 4:
                                 thisBrush = Brushes.DarkBlue; // tail
                                 break;
+                            case 5:
+                                thisBrush = Brushes.Red; // food
+                                break;
                         }
                         e.Graphics.FillRectangle(thisBrush, new Rectangle(borderWidthPx + boxSize * x, borderWidthPx + boxSize * y, boxSize, boxSize));
                     }
@@ -99,22 +129,25 @@ namespace AI_Snake
         private void GameForm_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (game != null)
+            {
                 if (e.KeyChar.Equals('w'))
                 {
-                    game.makeMove('N');
+                    gameState = (SnakeGameState)game.makeMove(gameState, 'N');
                 }
                 else if (e.KeyChar.Equals('s'))
                 {
-                    game.makeMove('S');
+                    gameState = (SnakeGameState)game.makeMove(gameState, 'S');
                 }
                 else if (e.KeyChar.Equals('a'))
                 {
-                    game.makeMove('W');
+                    gameState = (SnakeGameState)game.makeMove(gameState, 'W');
                 }
                 else if (e.KeyChar.Equals('d'))
                 {
-                    game.makeMove('E');
+                    gameState = (SnakeGameState)game.makeMove(gameState, 'E');
                 }
+                drawGame();
+            }
         }
 
     }

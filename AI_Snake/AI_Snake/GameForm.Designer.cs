@@ -53,6 +53,8 @@ namespace AI_Snake
             this.pnlGame = new System.Windows.Forms.Panel();
             this.stsGame = new System.Windows.Forms.StatusStrip();
             this.lblGameStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.nudBlocks = new System.Windows.Forms.NumericUpDown();
+            this.lblblocks = new System.Windows.Forms.Label();
             this.pnlOptions.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimerSpeed)).BeginInit();
@@ -65,6 +67,7 @@ namespace AI_Snake
             this.grpMode.SuspendLayout();
             this.pnlGame.SuspendLayout();
             this.stsGame.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBlocks)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlOptions
@@ -74,25 +77,29 @@ namespace AI_Snake
             this.pnlOptions.Controls.Add(this.groupBox1);
             this.pnlOptions.Controls.Add(this.grpMode);
             this.pnlOptions.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlOptions.Location = new System.Drawing.Point(774, 0);
+            this.pnlOptions.Location = new System.Drawing.Point(581, 0);
+            this.pnlOptions.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pnlOptions.Name = "pnlOptions";
-            this.pnlOptions.Size = new System.Drawing.Size(215, 478);
+            this.pnlOptions.Size = new System.Drawing.Size(161, 388);
             this.pnlOptions.TabIndex = 0;
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.nudTimerSpeed);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox3.Location = new System.Drawing.Point(0, 428);
+            this.groupBox3.Location = new System.Drawing.Point(0, 347);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(215, 50);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Size = new System.Drawing.Size(161, 41);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Timer Speed";
             // 
             // nudTimerSpeed
             // 
-            this.nudTimerSpeed.Location = new System.Drawing.Point(10, 16);
+            this.nudTimerSpeed.Location = new System.Drawing.Point(8, 13);
+            this.nudTimerSpeed.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nudTimerSpeed.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -104,7 +111,7 @@ namespace AI_Snake
             0,
             0});
             this.nudTimerSpeed.Name = "nudTimerSpeed";
-            this.nudTimerSpeed.Size = new System.Drawing.Size(120, 22);
+            this.nudTimerSpeed.Size = new System.Drawing.Size(90, 20);
             this.nudTimerSpeed.TabIndex = 0;
             this.nudTimerSpeed.Value = new decimal(new int[] {
             100,
@@ -118,9 +125,11 @@ namespace AI_Snake
             this.groupBox2.Controls.Add(this.radMixed);
             this.groupBox2.Controls.Add(this.radEuclidean);
             this.groupBox2.Controls.Add(this.radManhattan);
-            this.groupBox2.Location = new System.Drawing.Point(3, 159);
+            this.groupBox2.Location = new System.Drawing.Point(2, 150);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(212, 102);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(159, 83);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Heuristic";
@@ -128,9 +137,10 @@ namespace AI_Snake
             // radMixed
             // 
             this.radMixed.AutoSize = true;
-            this.radMixed.Location = new System.Drawing.Point(7, 77);
+            this.radMixed.Location = new System.Drawing.Point(5, 63);
+            this.radMixed.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radMixed.Name = "radMixed";
-            this.radMixed.Size = new System.Drawing.Size(65, 21);
+            this.radMixed.Size = new System.Drawing.Size(53, 17);
             this.radMixed.TabIndex = 2;
             this.radMixed.TabStop = true;
             this.radMixed.Text = "Mixed";
@@ -139,9 +149,10 @@ namespace AI_Snake
             // radEuclidean
             // 
             this.radEuclidean.AutoSize = true;
-            this.radEuclidean.Location = new System.Drawing.Point(6, 48);
+            this.radEuclidean.Location = new System.Drawing.Point(4, 39);
+            this.radEuclidean.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radEuclidean.Name = "radEuclidean";
-            this.radEuclidean.Size = new System.Drawing.Size(91, 21);
+            this.radEuclidean.Size = new System.Drawing.Size(72, 17);
             this.radEuclidean.TabIndex = 1;
             this.radEuclidean.TabStop = true;
             this.radEuclidean.Text = "Euclidean";
@@ -150,9 +161,10 @@ namespace AI_Snake
             // radManhattan
             // 
             this.radManhattan.AutoSize = true;
-            this.radManhattan.Location = new System.Drawing.Point(6, 21);
+            this.radManhattan.Location = new System.Drawing.Point(4, 17);
+            this.radManhattan.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radManhattan.Name = "radManhattan";
-            this.radManhattan.Size = new System.Drawing.Size(96, 21);
+            this.radManhattan.Size = new System.Drawing.Size(76, 17);
             this.radManhattan.TabIndex = 0;
             this.radManhattan.TabStop = true;
             this.radManhattan.Text = "Manhattan";
@@ -160,6 +172,8 @@ namespace AI_Snake
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.nudBlocks);
+            this.groupBox1.Controls.Add(this.lblblocks);
             this.groupBox1.Controls.Add(this.nudNumbSnakes);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.btnCreate);
@@ -170,15 +184,18 @@ namespace AI_Snake
             this.groupBox1.Controls.Add(this.nudSnakeLength);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(215, 153);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(161, 146);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Game";
             // 
             // nudNumbSnakes
             // 
-            this.nudNumbSnakes.Location = new System.Drawing.Point(108, 72);
+            this.nudNumbSnakes.Location = new System.Drawing.Point(81, 58);
+            this.nudNumbSnakes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nudNumbSnakes.Maximum = new decimal(new int[] {
             5,
             0,
@@ -190,7 +207,7 @@ namespace AI_Snake
             0,
             0});
             this.nudNumbSnakes.Name = "nudNumbSnakes";
-            this.nudNumbSnakes.Size = new System.Drawing.Size(101, 22);
+            this.nudNumbSnakes.Size = new System.Drawing.Size(76, 20);
             this.nudNumbSnakes.TabIndex = 7;
             this.nudNumbSnakes.Value = new decimal(new int[] {
             1,
@@ -201,17 +218,19 @@ namespace AI_Snake
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 74);
+            this.label3.Location = new System.Drawing.Point(4, 60);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 17);
+            this.label3.Size = new System.Drawing.Size(43, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "Snakes";
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(10, 100);
+            this.btnCreate.Location = new System.Drawing.Point(8, 104);
+            this.btnCreate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(193, 47);
+            this.btnCreate.Size = new System.Drawing.Size(145, 38);
             this.btnCreate.TabIndex = 5;
             this.btnCreate.Text = "Create / Reset";
             this.btnCreate.UseVisualStyleBackColor = true;
@@ -220,22 +239,24 @@ namespace AI_Snake
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 46);
+            this.label2.Location = new System.Drawing.Point(4, 37);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 17);
+            this.label2.Size = new System.Drawing.Size(59, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Dimentions";
             // 
             // nudHeight
             // 
-            this.nudHeight.Location = new System.Drawing.Point(159, 44);
+            this.nudHeight.Location = new System.Drawing.Point(119, 36);
+            this.nudHeight.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nudHeight.Minimum = new decimal(new int[] {
             10,
             0,
             0,
             0});
             this.nudHeight.Name = "nudHeight";
-            this.nudHeight.Size = new System.Drawing.Size(50, 22);
+            this.nudHeight.Size = new System.Drawing.Size(38, 20);
             this.nudHeight.TabIndex = 4;
             this.nudHeight.Value = new decimal(new int[] {
             20,
@@ -245,14 +266,15 @@ namespace AI_Snake
             // 
             // nudWidth
             // 
-            this.nudWidth.Location = new System.Drawing.Point(108, 44);
+            this.nudWidth.Location = new System.Drawing.Point(81, 36);
+            this.nudWidth.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nudWidth.Minimum = new decimal(new int[] {
             10,
             0,
             0,
             0});
             this.nudWidth.Name = "nudWidth";
-            this.nudWidth.Size = new System.Drawing.Size(45, 22);
+            this.nudWidth.Size = new System.Drawing.Size(34, 20);
             this.nudWidth.TabIndex = 3;
             this.nudWidth.Value = new decimal(new int[] {
             20,
@@ -263,22 +285,24 @@ namespace AI_Snake
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 18);
+            this.label1.Location = new System.Drawing.Point(4, 15);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 17);
+            this.label1.Size = new System.Drawing.Size(74, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Snake Length";
             // 
             // nudSnakeLength
             // 
-            this.nudSnakeLength.Location = new System.Drawing.Point(108, 16);
+            this.nudSnakeLength.Location = new System.Drawing.Point(81, 13);
+            this.nudSnakeLength.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nudSnakeLength.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.nudSnakeLength.Name = "nudSnakeLength";
-            this.nudSnakeLength.Size = new System.Drawing.Size(101, 22);
+            this.nudSnakeLength.Size = new System.Drawing.Size(76, 20);
             this.nudSnakeLength.TabIndex = 2;
             this.nudSnakeLength.Value = new decimal(new int[] {
             5,
@@ -292,9 +316,11 @@ namespace AI_Snake
             this.grpMode.Controls.Add(this.RadAStar);
             this.grpMode.Controls.Add(this.radDepth);
             this.grpMode.Controls.Add(this.radBreadth);
-            this.grpMode.Location = new System.Drawing.Point(3, 267);
+            this.grpMode.Location = new System.Drawing.Point(2, 238);
+            this.grpMode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.grpMode.Name = "grpMode";
-            this.grpMode.Size = new System.Drawing.Size(212, 129);
+            this.grpMode.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpMode.Size = new System.Drawing.Size(159, 105);
             this.grpMode.TabIndex = 0;
             this.grpMode.TabStop = false;
             this.grpMode.Text = "Mode";
@@ -303,9 +329,10 @@ namespace AI_Snake
             // 
             this.radManual.AutoSize = true;
             this.radManual.Checked = true;
-            this.radManual.Location = new System.Drawing.Point(7, 103);
+            this.radManual.Location = new System.Drawing.Point(5, 84);
+            this.radManual.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radManual.Name = "radManual";
-            this.radManual.Size = new System.Drawing.Size(75, 21);
+            this.radManual.Size = new System.Drawing.Size(60, 17);
             this.radManual.TabIndex = 3;
             this.radManual.TabStop = true;
             this.radManual.Text = "Manual";
@@ -314,9 +341,10 @@ namespace AI_Snake
             // RadAStar
             // 
             this.RadAStar.AutoSize = true;
-            this.RadAStar.Location = new System.Drawing.Point(6, 76);
+            this.RadAStar.Location = new System.Drawing.Point(4, 62);
+            this.RadAStar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RadAStar.Name = "RadAStar";
-            this.RadAStar.Size = new System.Drawing.Size(43, 21);
+            this.RadAStar.Size = new System.Drawing.Size(36, 17);
             this.RadAStar.TabIndex = 2;
             this.RadAStar.Text = "A*";
             this.RadAStar.UseVisualStyleBackColor = true;
@@ -324,9 +352,10 @@ namespace AI_Snake
             // radDepth
             // 
             this.radDepth.AutoSize = true;
-            this.radDepth.Location = new System.Drawing.Point(6, 49);
+            this.radDepth.Location = new System.Drawing.Point(4, 40);
+            this.radDepth.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radDepth.Name = "radDepth";
-            this.radDepth.Size = new System.Drawing.Size(98, 21);
+            this.radDepth.Size = new System.Drawing.Size(76, 17);
             this.radDepth.TabIndex = 1;
             this.radDepth.Text = "Depth First";
             this.radDepth.UseVisualStyleBackColor = true;
@@ -334,9 +363,10 @@ namespace AI_Snake
             // radBreadth
             // 
             this.radBreadth.AutoSize = true;
-            this.radBreadth.Location = new System.Drawing.Point(7, 22);
+            this.radBreadth.Location = new System.Drawing.Point(5, 18);
+            this.radBreadth.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radBreadth.Name = "radBreadth";
-            this.radBreadth.Size = new System.Drawing.Size(110, 21);
+            this.radBreadth.Size = new System.Drawing.Size(84, 17);
             this.radBreadth.TabIndex = 0;
             this.radBreadth.Text = "Breadth First";
             this.radBreadth.UseVisualStyleBackColor = true;
@@ -347,8 +377,9 @@ namespace AI_Snake
             this.pnlGame.Controls.Add(this.stsGame);
             this.pnlGame.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlGame.Location = new System.Drawing.Point(0, 0);
+            this.pnlGame.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pnlGame.Name = "pnlGame";
-            this.pnlGame.Size = new System.Drawing.Size(774, 478);
+            this.pnlGame.Size = new System.Drawing.Size(581, 388);
             this.pnlGame.TabIndex = 1;
             this.pnlGame.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlGame_Paint);
             // 
@@ -356,9 +387,10 @@ namespace AI_Snake
             // 
             this.stsGame.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblGameStatus});
-            this.stsGame.Location = new System.Drawing.Point(0, 456);
+            this.stsGame.Location = new System.Drawing.Point(0, 366);
             this.stsGame.Name = "stsGame";
-            this.stsGame.Size = new System.Drawing.Size(774, 22);
+            this.stsGame.Padding = new System.Windows.Forms.Padding(1, 0, 10, 0);
+            this.stsGame.Size = new System.Drawing.Size(581, 22);
             this.stsGame.TabIndex = 0;
             // 
             // lblGameStatus
@@ -366,15 +398,42 @@ namespace AI_Snake
             this.lblGameStatus.Name = "lblGameStatus";
             this.lblGameStatus.Size = new System.Drawing.Size(0, 17);
             // 
+            // nudBlocks
+            // 
+            this.nudBlocks.Location = new System.Drawing.Point(81, 81);
+            this.nudBlocks.Margin = new System.Windows.Forms.Padding(2);
+            this.nudBlocks.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudBlocks.Name = "nudBlocks";
+            this.nudBlocks.Size = new System.Drawing.Size(76, 20);
+            this.nudBlocks.TabIndex = 9;
+            this.nudBlocks.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // lblblocks
+            // 
+            this.lblblocks.AutoSize = true;
+            this.lblblocks.Location = new System.Drawing.Point(4, 83);
+            this.lblblocks.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblblocks.Name = "lblblocks";
+            this.lblblocks.Size = new System.Drawing.Size(49, 13);
+            this.lblblocks.TabIndex = 8;
+            this.lblblocks.Text = "# Blocks";
+            // 
             // GameForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(989, 478);
+            this.ClientSize = new System.Drawing.Size(742, 388);
             this.Controls.Add(this.pnlGame);
             this.Controls.Add(this.pnlOptions);
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GameForm";
             this.Text = "Damian\'s Snake Game With AI";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GameForm_KeyPress);
@@ -395,6 +454,7 @@ namespace AI_Snake
             this.pnlGame.PerformLayout();
             this.stsGame.ResumeLayout(false);
             this.stsGame.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBlocks)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -426,6 +486,8 @@ namespace AI_Snake
         private System.Windows.Forms.Label label3;
         private StatusStrip stsGame;
         private ToolStripStatusLabel lblGameStatus;
+        private NumericUpDown nudBlocks;
+        private Label lblblocks;
     }
 }
 

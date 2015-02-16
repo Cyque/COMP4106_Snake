@@ -8,13 +8,14 @@ namespace AI_Snake
 {
     public class Snake
     {
-        List<Point> body;
-        int maxLength;
+        private List<Point> body;
+        private int maxLength;
+        private int foodCollected = 0;
 
-
+        public int FoodCollected { get { return foodCollected; } }
         public List<Point> Body { get { return body; } }
-
         public Point Head { get { return body[0]; } }
+        public Point Tail { get { return body[body.Count - 1]; } }
 
         public Snake(int length, Point startPosition)
         {
@@ -27,6 +28,11 @@ namespace AI_Snake
         {
             this.maxLength = maxLength;
             this.body = body;
+        }
+
+        public void giveFood()
+        {
+            foodCollected++;
         }
 
         public bool intersects(Point point)
@@ -51,7 +57,6 @@ namespace AI_Snake
 
             return false;
         }
-
 
         /// <summary>
         /// Moves the head of the snake in the given direction. 
