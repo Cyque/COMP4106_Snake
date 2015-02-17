@@ -7,11 +7,12 @@ namespace AI_Snake
 {
     public abstract class Game
     {
-
         public Game()
         { }
 
         public abstract GameState makeMove(GameState gameState, int player, Object move);
+
+        public abstract List<Object> getMoves();
 
         /// <summary>
         /// Creates a new gamestate for the game.
@@ -20,10 +21,12 @@ namespace AI_Snake
         /// <returns>the new gamestate</returns>
         public GameState makeMove(GameState gameState, Object move)
         {
-            if(isGameOver(gameState) != -1)
+            if (isGameOver(gameState) != -1)
                 return gameState;
 
+            //newS.reachedGoalHere = false;
             GameState newS = makeMove(gameState, 0, move);
+            
             return newS;
         }
 
@@ -37,5 +40,6 @@ namespace AI_Snake
         }
 
         protected abstract int calculateGameOver(GameState gameState);
+
     }
 }

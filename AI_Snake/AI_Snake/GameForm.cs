@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace AI_Snake
 {
@@ -15,6 +16,8 @@ namespace AI_Snake
         SnakeGame game;
 
         int[,] lastTileData;
+
+        List<object> movesTodo;
 
         public GameForm()
         {
@@ -121,14 +124,9 @@ namespace AI_Snake
             }
         }
 
-        private void tmrGameAI_Tick(object sender, EventArgs e)
-        {
-            pnlGame.Invalidate();
-        }
-
         private void GameForm_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (game != null)
+            if (game != null && movesTodo == null)
             {
                 if (e.KeyChar.Equals('w'))
                 {
@@ -147,7 +145,46 @@ namespace AI_Snake
                     gameState = (SnakeGameState)game.makeMove(gameState, 'E');
                 }
                 drawGame();
+                //Console.Write(gameState.ToString());
             }
+        }
+
+
+        private void runAI(List<object> moves)
+        {
+            movesTodo = moves;
+        }
+
+        private void btnAI_Click(object sender, EventArgs e)
+        {
+            if (radBreadth.Checked)
+            {
+                BreadthFirst search = new BreadthFirst();
+                List<object> result = search.solveGame(gameState, new SnakeGame(), 0);
+
+                if(result == null)
+                    Console.WriteLine("No solution");
+
+                for(int i = 0; i < result.Count; i++)
+                    Console.Write(result[i] + ", ");
+                Console.WriteLine(search.nodesExpanded);
+                Console.WriteLine();
+
+                runAI(result);
+            }
+        }
+
+        private void tmrGameAI_Tick(object sender, EventArgs e)
+        {
+            if (movesTodo != null)
+            {
+                gameState = (SnakeGameState)game.makeMove(gameState, movesTodo[0]);
+                movesTodo.RemoveAt(0);
+                if (movesTodo.Count == 0)
+                    movesTodo = null;
+                drawGame();
+            }
+
         }
 
     }

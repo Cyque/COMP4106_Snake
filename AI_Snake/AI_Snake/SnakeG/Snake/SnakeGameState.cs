@@ -13,12 +13,14 @@ namespace AI_Snake
         private Point food;
         private List<Point> blocks;
 
+
         public Point Size { get { return size; } }
         public List<Snake> Snakes { get { return snakes; } }
         public Point Food { get { return food; } set { food = value; } }
         public List<Point> Blocks { get { return blocks; } }
 
-        public SnakeGameState(Point size, List<Snake> snakes, Point food, List<Point> blocks)
+        public SnakeGameState(SnakeGameState lastState, object moveToGetHere, Point size, List<Snake> snakes, Point food, List<Point> blocks)
+            : base(lastState, moveToGetHere)
         {
             this.size = size;
             this.snakes = snakes;
@@ -47,7 +49,7 @@ namespace AI_Snake
             return true;
         }
 
-        public override SnakeGameState Copy()
+        public override SnakeGameState Copy(object moveToGetHere)
         {
             Point sizeCopy = new Point(size.X, size.Y);
             List<Snake> snakesCopy = new List<Snake>();
@@ -61,8 +63,71 @@ namespace AI_Snake
             foreach (Point block in blocks)
                 blocksCopy.Add(new Point(block.X, block.Y));
 
-            return new SnakeGameState(sizeCopy, snakesCopy, foodCopy, blocksCopy);
+            return new SnakeGameState(this, moveToGetHere, sizeCopy, snakesCopy, foodCopy, blocksCopy);
         }
 
+
+        public override int GetHashCode()
+        {
+            int hs = 0;
+            hs += size.Y;
+            hs += size.X * 200;
+
+            hs += food.X * 3000;
+            hs += food.Y * 40000;
+
+            for (int i = 0; i < snakes.Count; i++)
+                for (int j = 0; j < snakes[i].Body.Count; j++)
+                {
+                    hs += snakes[i].Body[j].X * 5000;
+                    hs += snakes[i].Body[j].X * 60000;
+                }
+
+            for (int i = 0; i < blocks.Count; i++)
+            {
+                hs += blocks[i].X * 700000;
+                hs += blocks[i].Y * 8000000;
+            }
+            return hs;
+        }
+
+
+        public override string ToString()
+        {
+            int[,] tiles = new int[Size.Y, Size.X];
+
+            for (int i = 0; i < Blocks.Count; i++)
+                tiles[Blocks[i].Y, Blocks[i].X] = 1;
+
+            tiles[Food.Y, Food.X] = 5;
+
+            for (int i = 0; i < Blocks.Count; i++)
+                tiles[Blocks[i].Y, Blocks[i].X] = 1;
+
+
+            for (int i = 0; i < Snakes.Count; i++)
+            {
+                for (int s = 0; s < Snakes[i].Body.Count; s++)
+                    tiles[Snakes[i].Body[s].Y, Snakes[i].Body[s].X] = 3;
+
+
+                tiles[Snakes[i].Tail.Y, Snakes[i].Tail.X] = 4;
+                tiles[Snakes[i].Head.Y, Snakes[i].Head.X] = 2;
+            }
+
+            String ss = "";
+            for (int y = 0; y < Size.Y; y++)
+            {
+                for (int x = 0; x < Size.X; x++)
+                {
+                    ss += tiles[y, x];                
+                }
+                ss += "\n";
+            }
+
+            ss += "Reached Goal Here: " + base.reachedGoalHere + "\n";
+
+            return ss;
+        }
     }
 }

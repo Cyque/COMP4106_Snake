@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SnakeG\AI\BreadthFirst.cs" />
     <Compile Include="SnakeG\Base\Game.cs" />
     <Compile Include="SnakeG\Base\GameState.cs" />
     <Compile Include="SnakeG\Snake\Snake.cs" />

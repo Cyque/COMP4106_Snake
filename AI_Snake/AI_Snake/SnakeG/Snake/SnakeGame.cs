@@ -16,6 +16,11 @@ namespace AI_Snake
         { }
 
 
+        public override List<Object> getMoves()
+        {
+            return new List<object>(new Object[] { 'N', 'E', 'W', 'S' });
+        }
+
         public SnakeGameState createInitialState(Point size, int snakeLength, int numberOfSnakes, int numberOfRandomBlocks)
         {
             List<Point> blocks = new List<Point>();
@@ -35,7 +40,7 @@ namespace AI_Snake
 
             food = randomPoint(size, blocks, snakes, food);
 
-            return new SnakeGameState(size, snakes, food, blocks);
+            return new SnakeGameState(null, null, size, snakes, food, blocks);
         }
 
         private Point randomPoint(Point size, List<Point> blocks, List<Snake> snakes, Point food)
@@ -69,7 +74,7 @@ namespace AI_Snake
 
         public override GameState makeMove(GameState gameState, int player, Object move)
         {
-            SnakeGameState sgs = (SnakeGameState)gameState.Copy();
+            SnakeGameState sgs = (SnakeGameState)gameState.Copy(move);
 
             sgs.Snakes[player].move((char)move);
 
@@ -77,6 +82,7 @@ namespace AI_Snake
             {
                 sgs.Food = randomPoint(sgs.Size, sgs.Blocks, sgs.Snakes, sgs.Food);
                 sgs.Snakes[player].giveFood();
+                sgs.reachedGoalHere = true;
             }
 
             return sgs;
