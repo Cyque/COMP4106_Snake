@@ -19,8 +19,8 @@ namespace AI_Snake
         public Point Food { get { return food; } set { food = value; } }
         public List<Point> Blocks { get { return blocks; } }
 
-        public SnakeGameState(SnakeGameState lastState, object moveToGetHere, Point size, List<Snake> snakes, Point food, List<Point> blocks)
-            : base(lastState, moveToGetHere)
+        public SnakeGameState(SnakeGameState lastState, object moveToGetHere, int stepsToReach, Point size, List<Snake> snakes, Point food, List<Point> blocks)
+            : base(lastState, moveToGetHere, stepsToReach)
         {
             this.size = size;
             this.snakes = snakes;
@@ -30,21 +30,33 @@ namespace AI_Snake
 
         public override bool Equals(GameState c)
         {
-            if (!(c is SnakeGameState)) return false;
+
+            //return GetHashCode() == c.GetHashCode();
 
             SnakeGameState compare = (SnakeGameState)c;
 
-            if (!compare.size.Equals(size)) return false;
+            if (compare.size.X != size.X) return false;
+            if (compare.size.Y != size.Y) return false;
 
             if (compare.snakes.Count != snakes.Count) return false;
 
-            if (!compare.food.Equals(food)) return false;
+            if (compare.food.Y != food.Y) return false;
 
             for (int i = 0; i < compare.snakes.Count; i++)
-                if (!compare.snakes[i].Equals(snakes[i])) return false;
+            {
+                if (compare.snakes[i].Body.Count != snakes[i].Body.Count) return false;
+                for (int j = 0; j < compare.snakes.Count; j++)
+                {
+                    if (compare.snakes[i].Body[j].X != snakes[i].Body[j].X) return false;
+                    if (compare.snakes[i].Body[j].Y != snakes[i].Body[j].Y) return false;
+                }
+            }
 
             for (int i = 0; i < compare.blocks.Count; i++)
-                if (!compare.blocks[i].Equals(blocks[i])) return false;
+            {
+                if (compare.blocks[i].X != blocks[i].X) return false;
+                if (compare.blocks[i].Y != blocks[i].Y) return false;
+            }
 
             return true;
         }
@@ -63,33 +75,35 @@ namespace AI_Snake
             foreach (Point block in blocks)
                 blocksCopy.Add(new Point(block.X, block.Y));
 
-            return new SnakeGameState(this, moveToGetHere, sizeCopy, snakesCopy, foodCopy, blocksCopy);
+            return new SnakeGameState(this, moveToGetHere, stepsToReach + 1, sizeCopy, snakesCopy, foodCopy, blocksCopy);
         }
 
 
-        public override int GetHashCode()
-        {
-            int hs = 0;
-            hs += size.Y;
-            hs += size.X * 200;
+        //public override int GetHashCode()
+        //{
+        //    int hs = 1;
+        //    hs *= size.Y;
+        //    hs *= size.X;
 
-            hs += food.X * 3000;
-            hs += food.Y * 40000;
+        //    hs *= food.X;
+        //    hs *= food.Y;
 
-            for (int i = 0; i < snakes.Count; i++)
-                for (int j = 0; j < snakes[i].Body.Count; j++)
-                {
-                    hs += snakes[i].Body[j].X * 5000;
-                    hs += snakes[i].Body[j].X * 60000;
-                }
+        //    for (int i = 0; i < snakes.Count; i++)
+        //        for (int j = 0; j < snakes[i].Body.Count; j++)
+        //        {
+        //            hs *= snakes[i].Body[j].X;
+        //            hs *= snakes[i].Body[j].X;
+        //        }
 
-            for (int i = 0; i < blocks.Count; i++)
-            {
-                hs += blocks[i].X * 700000;
-                hs += blocks[i].Y * 8000000;
-            }
-            return hs;
-        }
+        //    for (int i = 0; i < blocks.Count; i++)
+        //    {
+        //        hs *= blocks[i].X;
+        //        hs *= blocks[i].Y;
+        //    }
+
+        //    //hs += ((byte) moveToGetHere) * 90000000;
+        //    return hs;
+        //}
 
 
         public override string ToString()
@@ -120,7 +134,7 @@ namespace AI_Snake
             {
                 for (int x = 0; x < Size.X; x++)
                 {
-                    ss += tiles[y, x];                
+                    ss += tiles[y, x];
                 }
                 ss += "\n";
             }

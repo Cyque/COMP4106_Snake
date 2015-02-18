@@ -145,7 +145,6 @@ namespace AI_Snake
                     gameState = (SnakeGameState)game.makeMove(gameState, 'E');
                 }
                 drawGame();
-                //Console.Write(gameState.ToString());
             }
         }
 
@@ -157,20 +156,36 @@ namespace AI_Snake
 
         private void btnAI_Click(object sender, EventArgs e)
         {
-            if (radBreadth.Checked)
+            if (!radManual.Checked)
             {
-                BreadthFirst search = new BreadthFirst();
+                GameAI search = null;
+                if (radBreadth.Checked)
+                    search = new BreadthFirst();
+                else if(radDepth.Checked)
+                    search = new DepthFirst();
+                else if (RadAStar.Checked)
+                {
+                    if (radEuclidean.Checked)
+                        search = new AStar(0);
+                    else if (radManhattan.Checked)
+                        search = new AStar(1);
+                    else if (radMixed.Checked)
+                        search = new AStar(2);
+                }
+                
                 List<object> result = search.solveGame(gameState, new SnakeGame(), 0);
 
-                if(result == null)
+                if (result == null)
                     Console.WriteLine("No solution");
+                else
+                {
+                    for (int i = 0; i < result.Count; i++)
+                        Console.Write(result[i] + ", ");
+                    Console.WriteLine(search.nodesExpanded);
+                    Console.WriteLine();
 
-                for(int i = 0; i < result.Count; i++)
-                    Console.Write(result[i] + ", ");
-                Console.WriteLine(search.nodesExpanded);
-                Console.WriteLine();
-
-                runAI(result);
+                    runAI(result);
+                }
             }
         }
 

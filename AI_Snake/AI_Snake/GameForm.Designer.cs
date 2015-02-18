@@ -145,7 +145,6 @@ namespace AI_Snake
             this.radMixed.Name = "radMixed";
             this.radMixed.Size = new System.Drawing.Size(53, 17);
             this.radMixed.TabIndex = 2;
-            this.radMixed.TabStop = true;
             this.radMixed.Text = "Mixed";
             this.radMixed.UseVisualStyleBackColor = true;
             // 
@@ -157,13 +156,13 @@ namespace AI_Snake
             this.radEuclidean.Name = "radEuclidean";
             this.radEuclidean.Size = new System.Drawing.Size(72, 17);
             this.radEuclidean.TabIndex = 1;
-            this.radEuclidean.TabStop = true;
             this.radEuclidean.Text = "Euclidean";
             this.radEuclidean.UseVisualStyleBackColor = true;
             // 
             // radManhattan
             // 
             this.radManhattan.AutoSize = true;
+            this.radManhattan.Checked = true;
             this.radManhattan.Location = new System.Drawing.Point(4, 17);
             this.radManhattan.Margin = new System.Windows.Forms.Padding(2);
             this.radManhattan.Name = "radManhattan";
@@ -281,8 +280,13 @@ namespace AI_Snake
             // 
             this.nudHeight.Location = new System.Drawing.Point(119, 36);
             this.nudHeight.Margin = new System.Windows.Forms.Padding(2);
+            this.nudHeight.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
             this.nudHeight.Minimum = new decimal(new int[] {
-            10,
+            5,
             0,
             0,
             0});
@@ -290,7 +294,7 @@ namespace AI_Snake
             this.nudHeight.Size = new System.Drawing.Size(38, 20);
             this.nudHeight.TabIndex = 4;
             this.nudHeight.Value = new decimal(new int[] {
-            20,
+            10,
             0,
             0,
             0});
@@ -300,7 +304,7 @@ namespace AI_Snake
             this.nudWidth.Location = new System.Drawing.Point(81, 36);
             this.nudWidth.Margin = new System.Windows.Forms.Padding(2);
             this.nudWidth.Minimum = new decimal(new int[] {
-            10,
+            5,
             0,
             0,
             0});
@@ -308,7 +312,7 @@ namespace AI_Snake
             this.nudWidth.Size = new System.Drawing.Size(34, 20);
             this.nudWidth.TabIndex = 3;
             this.nudWidth.Value = new decimal(new int[] {
-            20,
+            10,
             0,
             0,
             0});

@@ -26,3 +26,4 @@ Z:\Users\Cyque\School\COMP4106\COMP4106_Snake\AI_Snake\AI_Snake\bin\Debug\AI_Sna
 Z:\Users\Cyque\School\COMP4106\COMP4106_Snake\AI_Snake\AI_Snake\obj\x86\Debug\AI_Snake.GameForm.resources
 Z:\Users\Cyque\School\COMP4106\COMP4106_Snake\AI_Snake\AI_Snake\obj\x86\Debug\AI_Snake.Properties.Resources.resources
 Z:\Users\Cyque\School\COMP4106\COMP4106_Snake\AI_Snake\AI_Snake\obj\x86\Debug\AI_Snake.csproj.GenerateResource.Cache
+Z:\Users\Cyque\School\COMP4106\COMP4106_Snake\AI_Snake\AI_Snake\obj\x86\Debug\AI_Snake.csprojResolveAssemblyReference.cache

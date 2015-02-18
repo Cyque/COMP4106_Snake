@@ -40,7 +40,7 @@ namespace AI_Snake
 
             food = randomPoint(size, blocks, snakes, food);
 
-            return new SnakeGameState(null, null, size, snakes, food, blocks);
+            return new SnakeGameState(null, null, 0, size, snakes, food, blocks);
         }
 
         private Point randomPoint(Point size, List<Point> blocks, List<Snake> snakes, Point food)

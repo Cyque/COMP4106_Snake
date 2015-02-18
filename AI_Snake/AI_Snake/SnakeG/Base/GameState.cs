@@ -14,12 +14,14 @@ namespace AI_Snake
 
         public object moveToGetHere;
         public bool reachedGoalHere;
+        public int stepsToReach;
 
-        public GameState(GameState lastState, object moveToGetHere)
+        public GameState(GameState lastState, object moveToGetHere, int stepsToReach)
         {
             reachedGoalHere = false;
             this.lastState = lastState;
             this.moveToGetHere = moveToGetHere;
+            this.stepsToReach = stepsToReach;
         }
 
         /// <summary>
@@ -31,6 +33,5 @@ namespace AI_Snake
 
         public abstract bool Equals(GameState compare);
 
-        public abstract override int GetHashCode();
     }
 }
