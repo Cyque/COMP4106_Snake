@@ -58,6 +58,7 @@ namespace AI_Snake
             this.stsGame = new System.Windows.Forms.StatusStrip();
             this.lblGameStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tmrGameAI = new System.Windows.Forms.Timer(this.components);
+            this.radModMan = new System.Windows.Forms.RadioButton();
             this.pnlOptions.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimerSpeed)).BeginInit();
@@ -83,14 +84,14 @@ namespace AI_Snake
             this.pnlOptions.Location = new System.Drawing.Point(581, 0);
             this.pnlOptions.Margin = new System.Windows.Forms.Padding(2);
             this.pnlOptions.Name = "pnlOptions";
-            this.pnlOptions.Size = new System.Drawing.Size(161, 423);
+            this.pnlOptions.Size = new System.Drawing.Size(161, 470);
             this.pnlOptions.TabIndex = 0;
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.nudTimerSpeed);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox3.Location = new System.Drawing.Point(0, 382);
+            this.groupBox3.Location = new System.Drawing.Point(0, 429);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
@@ -125,6 +126,7 @@ namespace AI_Snake
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.radModMan);
             this.groupBox2.Controls.Add(this.radMixed);
             this.groupBox2.Controls.Add(this.radEuclidean);
             this.groupBox2.Controls.Add(this.radManhattan);
@@ -132,7 +134,7 @@ namespace AI_Snake
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(159, 83);
+            this.groupBox2.Size = new System.Drawing.Size(159, 106);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Heuristic";
@@ -140,7 +142,7 @@ namespace AI_Snake
             // radMixed
             // 
             this.radMixed.AutoSize = true;
-            this.radMixed.Location = new System.Drawing.Point(5, 63);
+            this.radMixed.Location = new System.Drawing.Point(4, 81);
             this.radMixed.Margin = new System.Windows.Forms.Padding(2);
             this.radMixed.Name = "radMixed";
             this.radMixed.Size = new System.Drawing.Size(53, 17);
@@ -352,7 +354,7 @@ namespace AI_Snake
             this.grpMode.Controls.Add(this.RadAStar);
             this.grpMode.Controls.Add(this.radDepth);
             this.grpMode.Controls.Add(this.radBreadth);
-            this.grpMode.Location = new System.Drawing.Point(2, 238);
+            this.grpMode.Location = new System.Drawing.Point(4, 260);
             this.grpMode.Margin = new System.Windows.Forms.Padding(2);
             this.grpMode.Name = "grpMode";
             this.grpMode.Padding = new System.Windows.Forms.Padding(2);
@@ -426,7 +428,7 @@ namespace AI_Snake
             this.pnlGame.Location = new System.Drawing.Point(0, 0);
             this.pnlGame.Margin = new System.Windows.Forms.Padding(2);
             this.pnlGame.Name = "pnlGame";
-            this.pnlGame.Size = new System.Drawing.Size(581, 423);
+            this.pnlGame.Size = new System.Drawing.Size(581, 470);
             this.pnlGame.TabIndex = 1;
             this.pnlGame.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlGame_Paint);
             // 
@@ -434,7 +436,7 @@ namespace AI_Snake
             // 
             this.stsGame.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblGameStatus});
-            this.stsGame.Location = new System.Drawing.Point(0, 401);
+            this.stsGame.Location = new System.Drawing.Point(0, 448);
             this.stsGame.Name = "stsGame";
             this.stsGame.Padding = new System.Windows.Forms.Padding(1, 0, 10, 0);
             this.stsGame.Size = new System.Drawing.Size(581, 22);
@@ -450,11 +452,22 @@ namespace AI_Snake
             this.tmrGameAI.Enabled = true;
             this.tmrGameAI.Tick += new System.EventHandler(this.tmrGameAI_Tick);
             // 
+            // radModMan
+            // 
+            this.radModMan.AutoSize = true;
+            this.radModMan.Location = new System.Drawing.Point(4, 60);
+            this.radModMan.Margin = new System.Windows.Forms.Padding(2);
+            this.radModMan.Name = "radModMan";
+            this.radModMan.Size = new System.Drawing.Size(115, 17);
+            this.radModMan.TabIndex = 3;
+            this.radModMan.Text = "Modified Euclidean";
+            this.radModMan.UseVisualStyleBackColor = true;
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(742, 423);
+            this.ClientSize = new System.Drawing.Size(742, 470);
             this.Controls.Add(this.pnlGame);
             this.Controls.Add(this.pnlOptions);
             this.KeyPreview = true;
@@ -513,6 +526,7 @@ namespace AI_Snake
         private Label lblblocks;
         private Timer tmrGameAI;
         private Button btnAI;
+        private RadioButton radModMan;
     }
 }
 

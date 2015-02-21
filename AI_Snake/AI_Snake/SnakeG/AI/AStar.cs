@@ -22,7 +22,7 @@ namespace AI_Snake
 
         public override void addState(GameState node, int player)
         {
-            evalutationLayer.Add(new Tuple<GameState, double>(node, node.stepsToReach * 0.5d + calculateHeuristic(node, player)));
+            evalutationLayer.Add(new Tuple<GameState, double>(node, calculateHeuristic(node, player)));
         }
 
         public override GameState pullNextState()
@@ -58,14 +58,19 @@ namespace AI_Snake
             double xdif = sgs.Food.X - sgs.Snakes[snakeIndex].Head.X;
             double ydif = sgs.Food.Y - sgs.Snakes[snakeIndex].Head.Y;
 
-            double distanceEuc = Math.Sqrt(Math.Pow(xdif, 2) + Math.Pow(ydif, 2));
-            double distanceMan = Math.Abs(xdif) + Math.Abs(ydif);
+            double euc =  Math.Sqrt(Math.Pow(xdif, 2) + Math.Pow(ydif, 2));
+
+            double distanceEuc = node.stepsToReach + euc;
+            double distanceMan = node.stepsToReach +  Math.Abs(xdif) + Math.Abs(ydif);
+            double distanceModifiedEuc = node.stepsToReach * 0.5d + euc;
 
             if (heur == 0)
                 return distanceEuc;
             else if (heur == 1)
                 return distanceMan;
             else if (heur == 2)
+                return distanceModifiedEuc;
+            else if (heur == 3)
                 return (distanceEuc + distanceMan) / 2;
             else
                 return distanceEuc;

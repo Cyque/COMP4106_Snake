@@ -169,8 +169,10 @@ namespace AI_Snake
                         search = new AStar(0);
                     else if (radManhattan.Checked)
                         search = new AStar(1);
-                    else if (radMixed.Checked)
+                    else if (radModMan.Checked)
                         search = new AStar(2);
+                    else if (radMixed.Checked)
+                        search = new AStar(3);
                 }
                 
                 List<object> result = search.solveGame(gameState, new SnakeGame(), 0);
