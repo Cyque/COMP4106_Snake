@@ -217,5 +217,11 @@ namespace AI_Snake
             }
         }
 
+        public static bool headOnlyState = false;
+        private void chkFullState_CheckedChanged(object sender, EventArgs e)
+        {
+            headOnlyState = chkFullState.Checked;
+        }
+
     }
 }

@@ -5,19 +5,19 @@ using System.Text;
 
 namespace AI_Snake
 {
-    public class BreadthFirst : GameAI
+    public class DepthFirst : GameAI
     {
 
-        List<GameState> evalutationLayer = new List<GameState>();
+        Stack<GameState> evalutationLayer = new Stack<GameState>();
 
         public override void reset()
         {
-            evalutationLayer = new List<GameState>();
+            evalutationLayer = new Stack<GameState>();
         }
 
         public override void addState(GameState node, int player)
         {
-            evalutationLayer.Add(node);
+            evalutationLayer.Push(node);
         }
 
         public override GameState pullNextState()
@@ -26,9 +26,7 @@ namespace AI_Snake
                 return null;
             else
             {
-                GameState gs = evalutationLayer[0];
-                evalutationLayer.RemoveAt(0);
-                return gs;
+                return evalutationLayer.Pop();
             }
         }
     }

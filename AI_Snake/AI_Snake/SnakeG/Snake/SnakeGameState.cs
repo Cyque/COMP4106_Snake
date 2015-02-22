@@ -44,11 +44,19 @@ namespace AI_Snake
 
             for (int i = 0; i < compare.snakes.Count; i++)
             {
-                if (compare.snakes[i].Body.Count != snakes[i].Body.Count) return false;
-                for (int j = 0; j < compare.snakes[i].Body.Count; j++)
+                if (GameForm.headOnlyState)
                 {
-                    if (compare.snakes[i].Body[j].X != snakes[i].Body[j].X) return false;
-                    if (compare.snakes[i].Body[j].Y != snakes[i].Body[j].Y) return false;
+                    if (compare.snakes[i].Head.X != snakes[i].Head.X) return false;
+                    if (compare.snakes[i].Head.Y != snakes[i].Head.Y) return false;
+                }
+                else
+                {
+                    if (compare.snakes[i].Body.Count != snakes[i].Body.Count) return false;
+                    for (int j = 0; j < compare.snakes[i].Body.Count; j++)
+                    {
+                        if (compare.snakes[i].Body[j].X != snakes[i].Body[j].X) return false;
+                        if (compare.snakes[i].Body[j].Y != snakes[i].Body[j].Y) return false;
+                    }
                 }
             }
 

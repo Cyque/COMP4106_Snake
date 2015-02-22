@@ -79,7 +79,7 @@ namespace AI_Snake
             else if (heur == 3)
                 return distanceModifiedEuc;
             else if (heur == 4)
-                return (distanceEuc + distanceTC) / 2;
+                return (distanceEuc + distanceMan) / 2;
             else
                 return distanceEuc;
 

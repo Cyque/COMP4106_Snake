@@ -34,6 +34,7 @@ namespace AI_Snake
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.nudTimerSpeed = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radClosestToCenter = new System.Windows.Forms.RadioButton();
             this.radModMan = new System.Windows.Forms.RadioButton();
             this.radMixed = new System.Windows.Forms.RadioButton();
             this.radEuclidean = new System.Windows.Forms.RadioButton();
@@ -59,7 +60,7 @@ namespace AI_Snake
             this.stsGame = new System.Windows.Forms.StatusStrip();
             this.lblGameStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tmrGameAI = new System.Windows.Forms.Timer(this.components);
-            this.radClosestToCenter = new System.Windows.Forms.RadioButton();
+            this.chkFullState = new System.Windows.Forms.CheckBox();
             this.pnlOptions.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimerSpeed)).BeginInit();
@@ -77,6 +78,7 @@ namespace AI_Snake
             // 
             // pnlOptions
             // 
+            this.pnlOptions.Controls.Add(this.chkFullState);
             this.pnlOptions.Controls.Add(this.groupBox3);
             this.pnlOptions.Controls.Add(this.groupBox2);
             this.pnlOptions.Controls.Add(this.groupBox1);
@@ -140,6 +142,17 @@ namespace AI_Snake
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Heuristic";
+            // 
+            // radClosestToCenter
+            // 
+            this.radClosestToCenter.AutoSize = true;
+            this.radClosestToCenter.Location = new System.Drawing.Point(4, 58);
+            this.radClosestToCenter.Margin = new System.Windows.Forms.Padding(2);
+            this.radClosestToCenter.Name = "radClosestToCenter";
+            this.radClosestToCenter.Size = new System.Drawing.Size(109, 17);
+            this.radClosestToCenter.TabIndex = 4;
+            this.radClosestToCenter.Text = "Closest To Center";
+            this.radClosestToCenter.UseVisualStyleBackColor = true;
             // 
             // radModMan
             // 
@@ -362,7 +375,7 @@ namespace AI_Snake
             this.grpMode.Controls.Add(this.RadAStar);
             this.grpMode.Controls.Add(this.radDepth);
             this.grpMode.Controls.Add(this.radBreadth);
-            this.grpMode.Location = new System.Drawing.Point(4, 319);
+            this.grpMode.Location = new System.Drawing.Point(4, 286);
             this.grpMode.Margin = new System.Windows.Forms.Padding(2);
             this.grpMode.Name = "grpMode";
             this.grpMode.Padding = new System.Windows.Forms.Padding(2);
@@ -460,16 +473,16 @@ namespace AI_Snake
             this.tmrGameAI.Enabled = true;
             this.tmrGameAI.Tick += new System.EventHandler(this.tmrGameAI_Tick);
             // 
-            // radClosestToCenter
+            // chkFullState
             // 
-            this.radClosestToCenter.AutoSize = true;
-            this.radClosestToCenter.Location = new System.Drawing.Point(4, 58);
-            this.radClosestToCenter.Margin = new System.Windows.Forms.Padding(2);
-            this.radClosestToCenter.Name = "radClosestToCenter";
-            this.radClosestToCenter.Size = new System.Drawing.Size(109, 17);
-            this.radClosestToCenter.TabIndex = 4;
-            this.radClosestToCenter.Text = "Closest To Center";
-            this.radClosestToCenter.UseVisualStyleBackColor = true;
+            this.chkFullState.AutoSize = true;
+            this.chkFullState.Location = new System.Drawing.Point(9, 432);
+            this.chkFullState.Name = "chkFullState";
+            this.chkFullState.Size = new System.Drawing.Size(132, 17);
+            this.chkFullState.TabIndex = 6;
+            this.chkFullState.Text = "Head only state equiv.";
+            this.chkFullState.UseVisualStyleBackColor = true;
+            this.chkFullState.CheckedChanged += new System.EventHandler(this.chkFullState_CheckedChanged);
             // 
             // GameForm
             // 
@@ -483,6 +496,7 @@ namespace AI_Snake
             this.Text = "Damian\'s Snake Game With AI";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GameForm_KeyPress);
             this.pnlOptions.ResumeLayout(false);
+            this.pnlOptions.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudTimerSpeed)).EndInit();
             this.groupBox2.ResumeLayout(false);
@@ -536,6 +550,7 @@ namespace AI_Snake
         private Button btnAI;
         private RadioButton radModMan;
         private RadioButton radClosestToCenter;
+        private CheckBox chkFullState;
     }
 }
 
