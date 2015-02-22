@@ -72,7 +72,7 @@ namespace AI_Snake
         }
 
 
-        public override GameState makeMove(GameState gameState, int player, Object move)
+        protected override GameState makeGameMove(GameState gameState, int player, Object move)
         {
             SnakeGameState sgs = (SnakeGameState)gameState.Copy(move);
 
@@ -96,9 +96,8 @@ namespace AI_Snake
             {
                 for (int b = 0; b < sgs.Blocks.Count; b++)
                     if (sgs.Snakes[i].intersects(sgs.Blocks[b]))
-                        return i;                  
+                        return i;               
                 
-
                 for (int j = 0; j < sgs.Snakes.Count; j++)
                     if (sgs.Snakes[j].intersects(sgs.Snakes[i]))
                         return i;

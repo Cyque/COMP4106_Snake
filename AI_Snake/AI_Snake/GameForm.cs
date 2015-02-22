@@ -17,7 +17,7 @@ namespace AI_Snake
 
         int[,] lastTileData;
 
-        List<object> movesTodo;
+        List<Tuple<int, List<object>>> movesTodo = new List<Tuple<int, List<object>>>();
 
         public GameForm()
         {
@@ -29,8 +29,9 @@ namespace AI_Snake
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
+            movesTodo = new List<Tuple<int, List<object>>>();
             game = new SnakeGame();
-            gameState = game.createInitialState(new Point((int)nudWidth.Value, (int)nudHeight.Value), (int)nudSnakeLength.Value, (int)nudNumbSnakes.Value, (int) nudBlocks.Value);
+            gameState = game.createInitialState(new Point((int)nudWidth.Value, (int)nudHeight.Value), (int)nudSnakeLength.Value, (int)nudNumbSnakes.Value, (int)nudBlocks.Value);
 
             lblGameStatus.Text = "GAME STARTED.";
             this.drawGame();
@@ -57,14 +58,14 @@ namespace AI_Snake
 
             for (int i = 0; i < gameState.Snakes.Count; i++)
             {
-                for (int s = 0; s < gameState.Snakes[i].Body.Count; s++)                
+                for (int s = 0; s < gameState.Snakes[i].Body.Count; s++)
                     tiles[gameState.Snakes[i].Body[s].Y, gameState.Snakes[i].Body[s].X] = 3;
 
 
                 tiles[gameState.Snakes[i].Tail.Y, gameState.Snakes[i].Tail.X] = 4;
                 tiles[gameState.Snakes[i].Head.Y, gameState.Snakes[i].Head.X] = 2;
             }
-            
+
 
             return tiles;
         }
@@ -126,82 +127,94 @@ namespace AI_Snake
 
         private void GameForm_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (game != null && movesTodo == null)
+            if (game != null && movesTodo.Count == 0)
             {
                 if (e.KeyChar.Equals('w'))
                 {
-                    gameState = (SnakeGameState)game.makeMove(gameState, 'N');
+                    gameState = (SnakeGameState)game.makeMove(gameState, 0, 'N');
                 }
                 else if (e.KeyChar.Equals('s'))
                 {
-                    gameState = (SnakeGameState)game.makeMove(gameState, 'S');
+                    gameState = (SnakeGameState)game.makeMove(gameState, 0, 'S');
                 }
                 else if (e.KeyChar.Equals('a'))
                 {
-                    gameState = (SnakeGameState)game.makeMove(gameState, 'W');
+                    gameState = (SnakeGameState)game.makeMove(gameState, 0, 'W');
                 }
                 else if (e.KeyChar.Equals('d'))
                 {
-                    gameState = (SnakeGameState)game.makeMove(gameState, 'E');
+                    gameState = (SnakeGameState)game.makeMove(gameState, 0, 'E');
                 }
                 drawGame();
             }
         }
 
-
-        private void runAI(List<object> moves)
+        private void runAI(List<object> moves, int player)
         {
-            movesTodo = moves;
+            movesTodo.Add(new Tuple<int, List<object>>(player, moves));
         }
 
         private void btnAI_Click(object sender, EventArgs e)
         {
             if (!radManual.Checked)
             {
-                GameAI search = null;
-                if (radBreadth.Checked)
-                    search = new BreadthFirst();
-                else if(radDepth.Checked)
-                    search = new DepthFirst();
-                else if (RadAStar.Checked)
-                {
-                    if (radEuclidean.Checked)
-                        search = new AStar(0);
-                    else if (radManhattan.Checked)
-                        search = new AStar(1);
-                    else if (radModMan.Checked)
-                        search = new AStar(2);
-                    else if (radMixed.Checked)
-                        search = new AStar(3);
-                }
-                
-                List<object> result = search.solveGame(gameState, new SnakeGame(), 0);
 
-                if (result == null)
-                    Console.WriteLine("No solution");
-                else
+                for (int sn = 0; sn < gameState.Snakes.Count; sn++)
                 {
-                    for (int i = 0; i < result.Count; i++)
-                        Console.Write(result[i] + ", ");
-                    Console.WriteLine(search.nodesExpanded);
-                    Console.WriteLine();
+                    GameAI search = null;
+                    if (radBreadth.Checked)
+                        search = new BreadthFirst();
+                    else if (radDepth.Checked)
+                        search = new DepthFirst();
+                    else if (RadAStar.Checked)
+                    {
+                        if (radManhattan.Checked)
+                            search = new AStar(0);
+                        else if (radEuclidean.Checked)
+                            search = new AStar(1);
+                        else if (radClosestToCenter.Checked)
+                            search = new AStar(2);
+                        else if (radModMan.Checked)
+                            search = new AStar(3);
+                        else if (radMixed.Checked)
+                            search = new AStar(4);
+                    }
 
-                    runAI(result);
+
+                    List<object> result = search.solveGame(gameState, new SnakeGame(), sn);
+
+                    if (result == null)
+                        Console.WriteLine("No solution");
+                    else
+                    {
+                        for (int i = 0; i < result.Count; i++)
+                            Console.Write(result[i] + ", ");
+                        Console.WriteLine();
+                        Console.WriteLine(search.nodesExpanded);
+                        Console.WriteLine();
+
+                        runAI(result, sn);
+                    }
                 }
             }
         }
 
         private void tmrGameAI_Tick(object sender, EventArgs e)
         {
-            if (movesTodo != null)
+            if (movesTodo.Count > 0)
             {
-                gameState = (SnakeGameState)game.makeMove(gameState, movesTodo[0]);
-                movesTodo.RemoveAt(0);
-                if (movesTodo.Count == 0)
-                    movesTodo = null;
+                for (int i = 0; i < movesTodo.Count; i++)
+                {
+                    gameState = (SnakeGameState)game.makeMove(gameState, movesTodo[i].Item1, movesTodo[i].Item2[0]);
+                    movesTodo[i].Item2.RemoveAt(0);
+                    if (movesTodo[i].Item2.Count == 0)
+                    {
+                        movesTodo.RemoveAt(i);
+                        i--;
+                    }
+                }
                 drawGame();
             }
-
         }
 
     }

@@ -55,6 +55,9 @@ namespace AI_Snake
             SnakeGameState sgs = (SnakeGameState)node;
 
 
+            double xdifC = sgs.Size.X / 2d - sgs.Snakes[snakeIndex].Head.X;
+            double ydifC = sgs.Size.X / 2d - sgs.Snakes[snakeIndex].Head.Y;
+
             double xdif = sgs.Food.X - sgs.Snakes[snakeIndex].Head.X;
             double ydif = sgs.Food.Y - sgs.Snakes[snakeIndex].Head.Y;
 
@@ -62,16 +65,21 @@ namespace AI_Snake
 
             double distanceEuc = node.stepsToReach + euc;
             double distanceMan = node.stepsToReach +  Math.Abs(xdif) + Math.Abs(ydif);
-            double distanceModifiedEuc = node.stepsToReach * 0.5d + euc;
+
+            double distanceTC = node.stepsToReach + Math.Sqrt(Math.Pow(xdifC, 2) + Math.Pow(ydifC, 2));
+
+            double distanceModifiedEuc = euc;//node.stepsToReach * 0.5d + euc;
 
             if (heur == 0)
-                return distanceEuc;
-            else if (heur == 1)
                 return distanceMan;
+            else if (heur == 1)
+                return distanceEuc;
             else if (heur == 2)
-                return distanceModifiedEuc;
+                return distanceTC;
             else if (heur == 3)
-                return (distanceEuc + distanceMan) / 2;
+                return distanceModifiedEuc;
+            else if (heur == 4)
+                return (distanceEuc + distanceTC) / 2;
             else
                 return distanceEuc;
 

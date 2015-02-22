@@ -17,7 +17,7 @@ namespace AI_Snake
             List<object> availableMoves = game.getMoves();
 
             List<GameState> evaluated = new List<GameState>();
-            
+
             reset();
             addState(firstState, player);
 
@@ -26,7 +26,6 @@ namespace AI_Snake
             bool gameSolved = false;
             while (!gameSolved)
             {
-                
                 currentState = pullNextState();
                 if (currentState == null)
                     return null; // no solution
@@ -37,8 +36,7 @@ namespace AI_Snake
                 nodesExpanded++;
                 if (nodesExpanded % 10000 == 0)
                 {
-                    Console.WriteLine("Nodes Expanded: " + nodesExpanded);               
-                    
+                    Console.WriteLine("Nodes Expanded: " + nodesExpanded);
                 }
 
 
@@ -60,8 +58,7 @@ namespace AI_Snake
                     {
                         //expand new nodes
                         for (int i = 0; i < availableMoves.Count; i++)
-                            addState(game.makeMove(currentState, availableMoves[i]), player);
-                        Console.WriteLine("Expanded Nodes");
+                            addState(game.makeMove(currentState, player, availableMoves[i]), player);
                     }
                     else if (gameOverI == player) { }; //this state is a lost state. do not expand
 
@@ -69,7 +66,7 @@ namespace AI_Snake
                     evaluated.Add(currentState);
                 }
             }
-            
+
 
             List<object> moves = new List<object>();
             //backtrack moves

@@ -45,7 +45,7 @@ namespace AI_Snake
             for (int i = 0; i < compare.snakes.Count; i++)
             {
                 if (compare.snakes[i].Body.Count != snakes[i].Body.Count) return false;
-                for (int j = 0; j < compare.snakes.Count; j++)
+                for (int j = 0; j < compare.snakes[i].Body.Count; j++)
                 {
                     if (compare.snakes[i].Body[j].X != snakes[i].Body[j].X) return false;
                     if (compare.snakes[i].Body[j].Y != snakes[i].Body[j].Y) return false;

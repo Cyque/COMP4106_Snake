@@ -10,25 +10,20 @@ namespace AI_Snake
         public Game()
         { }
 
-        public abstract GameState makeMove(GameState gameState, int player, Object move);
-
-        public abstract List<Object> getMoves();
-
-        /// <summary>
-        /// Creates a new gamestate for the game.
-        /// </summary>
-        /// <param name="move"></param>
-        /// <returns>the new gamestate</returns>
-        public GameState makeMove(GameState gameState, Object move)
+        public GameState makeMove(GameState gameState, int player, Object move)
         {
             if (isGameOver(gameState) != -1)
                 return gameState;
 
             //newS.reachedGoalHere = false;
-            GameState newS = makeMove(gameState, 0, move);
-            
+            GameState newS = makeGameMove(gameState, player, move);
             return newS;
+            
         }
+
+        protected abstract GameState makeGameMove(GameState gameState, int player, Object move);
+
+        public abstract List<Object> getMoves();
 
         /// <summary>
         /// 
