@@ -31,6 +31,11 @@ namespace AI_Snake
         {
             this.components = new System.ComponentModel.Container();
             this.pnlOptions = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkP2AB = new System.Windows.Forms.CheckBox();
+            this.radP2Other = new System.Windows.Forms.RadioButton();
+            this.radP2BW = new System.Windows.Forms.RadioButton();
+            this.radP2Player = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.nudTimerSpeed = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -43,18 +48,13 @@ namespace AI_Snake
             this.stsGame = new System.Windows.Forms.StatusStrip();
             this.lblGameStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tmrGameAI = new System.Windows.Forms.Timer(this.components);
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkP2AB = new System.Windows.Forms.CheckBox();
-            this.radP2Other = new System.Windows.Forms.RadioButton();
-            this.radP2BW = new System.Windows.Forms.RadioButton();
-            this.radP2Player = new System.Windows.Forms.RadioButton();
             this.pnlOptions.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimerSpeed)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.pnlGame.SuspendLayout();
             this.stsGame.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlOptions
@@ -69,6 +69,66 @@ namespace AI_Snake
             this.pnlOptions.Name = "pnlOptions";
             this.pnlOptions.Size = new System.Drawing.Size(161, 504);
             this.pnlOptions.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.chkP2AB);
+            this.groupBox1.Controls.Add(this.radP2Other);
+            this.groupBox1.Controls.Add(this.radP2BW);
+            this.groupBox1.Controls.Add(this.radP2Player);
+            this.groupBox1.Location = new System.Drawing.Point(4, 126);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(159, 111);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Player 2";
+            // 
+            // chkP2AB
+            // 
+            this.chkP2AB.AutoSize = true;
+            this.chkP2AB.Location = new System.Drawing.Point(4, 82);
+            this.chkP2AB.Name = "chkP2AB";
+            this.chkP2AB.Size = new System.Drawing.Size(100, 17);
+            this.chkP2AB.TabIndex = 3;
+            this.chkP2AB.Text = "Use Alpha Beta";
+            this.chkP2AB.UseVisualStyleBackColor = true;
+            // 
+            // radP2Other
+            // 
+            this.radP2Other.AutoSize = true;
+            this.radP2Other.Location = new System.Drawing.Point(4, 60);
+            this.radP2Other.Margin = new System.Windows.Forms.Padding(2);
+            this.radP2Other.Name = "radP2Other";
+            this.radP2Other.Size = new System.Drawing.Size(98, 17);
+            this.radP2Other.TabIndex = 2;
+            this.radP2Other.Text = "Minimax - Other";
+            this.radP2Other.UseVisualStyleBackColor = true;
+            // 
+            // radP2BW
+            // 
+            this.radP2BW.AutoSize = true;
+            this.radP2BW.Location = new System.Drawing.Point(4, 39);
+            this.radP2BW.Margin = new System.Windows.Forms.Padding(2);
+            this.radP2BW.Name = "radP2BW";
+            this.radP2BW.Size = new System.Drawing.Size(90, 17);
+            this.radP2BW.TabIndex = 1;
+            this.radP2BW.Text = "Minimax - BW";
+            this.radP2BW.UseVisualStyleBackColor = true;
+            // 
+            // radP2Player
+            // 
+            this.radP2Player.AutoSize = true;
+            this.radP2Player.Checked = true;
+            this.radP2Player.Location = new System.Drawing.Point(4, 17);
+            this.radP2Player.Margin = new System.Windows.Forms.Padding(2);
+            this.radP2Player.Name = "radP2Player";
+            this.radP2Player.Size = new System.Drawing.Size(54, 17);
+            this.radP2Player.TabIndex = 0;
+            this.radP2Player.TabStop = true;
+            this.radP2Player.Text = "Player";
+            this.radP2Player.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -169,7 +229,7 @@ namespace AI_Snake
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(8, 409);
+            this.btnCreate.Location = new System.Drawing.Point(8, 241);
             this.btnCreate.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(145, 38);
@@ -189,6 +249,7 @@ namespace AI_Snake
             this.pnlGame.Size = new System.Drawing.Size(581, 504);
             this.pnlGame.TabIndex = 1;
             this.pnlGame.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlGame_Paint);
+            this.pnlGame.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlGame_MouseClick);
             // 
             // stsGame
             // 
@@ -210,66 +271,6 @@ namespace AI_Snake
             this.tmrGameAI.Enabled = true;
             this.tmrGameAI.Tick += new System.EventHandler(this.tmrGameAI_Tick);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.chkP2AB);
-            this.groupBox1.Controls.Add(this.radP2Other);
-            this.groupBox1.Controls.Add(this.radP2BW);
-            this.groupBox1.Controls.Add(this.radP2Player);
-            this.groupBox1.Location = new System.Drawing.Point(4, 126);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(159, 111);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Player 2";
-            // 
-            // chkP2AB
-            // 
-            this.chkP2AB.AutoSize = true;
-            this.chkP2AB.Location = new System.Drawing.Point(4, 82);
-            this.chkP2AB.Name = "chkP2AB";
-            this.chkP2AB.Size = new System.Drawing.Size(100, 17);
-            this.chkP2AB.TabIndex = 3;
-            this.chkP2AB.Text = "Use Alpha Beta";
-            this.chkP2AB.UseVisualStyleBackColor = true;
-            // 
-            // radP2Other
-            // 
-            this.radP2Other.AutoSize = true;
-            this.radP2Other.Location = new System.Drawing.Point(4, 60);
-            this.radP2Other.Margin = new System.Windows.Forms.Padding(2);
-            this.radP2Other.Name = "radP2Other";
-            this.radP2Other.Size = new System.Drawing.Size(98, 17);
-            this.radP2Other.TabIndex = 2;
-            this.radP2Other.Text = "Minimax - Other";
-            this.radP2Other.UseVisualStyleBackColor = true;
-            // 
-            // radP2BW
-            // 
-            this.radP2BW.AutoSize = true;
-            this.radP2BW.Location = new System.Drawing.Point(4, 39);
-            this.radP2BW.Margin = new System.Windows.Forms.Padding(2);
-            this.radP2BW.Name = "radP2BW";
-            this.radP2BW.Size = new System.Drawing.Size(90, 17);
-            this.radP2BW.TabIndex = 1;
-            this.radP2BW.Text = "Minimax - BW";
-            this.radP2BW.UseVisualStyleBackColor = true;
-            // 
-            // radP2Player
-            // 
-            this.radP2Player.AutoSize = true;
-            this.radP2Player.Checked = true;
-            this.radP2Player.Location = new System.Drawing.Point(4, 17);
-            this.radP2Player.Margin = new System.Windows.Forms.Padding(2);
-            this.radP2Player.Name = "radP2Player";
-            this.radP2Player.Size = new System.Drawing.Size(54, 17);
-            this.radP2Player.TabIndex = 0;
-            this.radP2Player.TabStop = true;
-            this.radP2Player.Text = "Player";
-            this.radP2Player.UseVisualStyleBackColor = true;
-            // 
             // OthelloGameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -280,8 +281,9 @@ namespace AI_Snake
             this.KeyPreview = true;
             this.Name = "OthelloGameForm";
             this.Text = "Damian\'s Snake Game With AI";
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GameForm_KeyPress);
             this.pnlOptions.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudTimerSpeed)).EndInit();
             this.groupBox2.ResumeLayout(false);
@@ -290,8 +292,6 @@ namespace AI_Snake
             this.pnlGame.PerformLayout();
             this.stsGame.ResumeLayout(false);
             this.stsGame.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }

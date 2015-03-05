@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace AI_Snake
 {
-    public class Othello : Game
+    public class OthelloGame : Game
     {
 
 
@@ -205,7 +205,7 @@ namespace AI_Snake
                     // must be empty space
                     if (gridItems[x, y] == 0)
                     {
-                        if (moveWillFlipPieces(gridItems, new Point(x,y), whosTurn))
+                        if (moveWillFlipPieces(gridItems, new Point(x, y), whosTurn))
                             return true;
                     }
                 }
@@ -224,7 +224,7 @@ namespace AI_Snake
                     && move.Y >= 0
                     && move.Y < gridItems.GetLength(1)
                 // check empty spot
-                    && gridItems[move.X,move.Y] == 0)
+                    && gridItems[move.X, move.Y] == 0)
             {
 
                 return moveWillFlipPieces(gridItems, move, whosTurn);
@@ -237,12 +237,25 @@ namespace AI_Snake
         protected override GameState makeGameMove(GameState gameState, int player, object move)
         {
             OthelloGameState newS = (OthelloGameState)((OthelloGameState)gameState).Copy(move);
-            Point m = (Point) move;
+            Point m = (Point)move;
 
-            newS.Items[m.X, m.Y] = player + 1;
+            List<object> mvs = getMoves(gameState);
 
-            flipPieces(newS.Items, m, player + 1);
+            bool canMove = false;
+            for (int i = 0; i < mvs.Count; i++)
+            {
+                if (((Point)mvs[i]).X == ((Point)move).X
+                    && ((Point)mvs[i]).Y == ((Point)move).Y)
+                {
+                    canMove = true;
+                }
+            }
+            if (canMove)
+            {
+                newS.Items[m.X, m.Y] = player + 1;
 
+                flipPieces(newS.Items, m, player + 1);
+            }
             return newS;
         }
 
@@ -250,7 +263,7 @@ namespace AI_Snake
 
         public override List<object> getMoves(GameState gameState)
         {
-             OthelloGameState gs= ( OthelloGameState) gameState;
+            OthelloGameState gs = (OthelloGameState)gameState;
             List<object> moves = new List<object>();
             for (int x = 0; x < gs.Items.GetLength(0); x++)
                 for (int y = 0; y < gs.Items.GetLength(1); y++)
@@ -275,7 +288,7 @@ namespace AI_Snake
                     if (cp.Items[x, y] == 2)
                         count2++;
                     if (cp.Items[x, y] == 0)
-                        return -2;
+                        return -1;
                 }
 
             if (count1 + count2 == 8 * 8)
@@ -290,6 +303,21 @@ namespace AI_Snake
 
 
             return -1;
+        }
+
+        public OthelloGameState createInitialState()
+        {
+            int[,] tiles = new int[8, 8];
+            for (int x = 0; x < 8; x++)
+                for (int y = 0; y < 8; y++)
+                    tiles[x, y] = 0;
+
+            tiles[3, 3] = 2;
+            tiles[3, 4] = 1;
+            tiles[4, 3] = 1;
+            tiles[4, 4] = 2;
+
+            return new OthelloGameState(null, null, 0, tiles, 0);
         }
     }
 }

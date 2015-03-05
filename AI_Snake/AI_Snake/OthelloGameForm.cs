@@ -12,8 +12,8 @@ namespace AI_Snake
 {
     public partial class OthelloGameForm : Form
     {
-        SnakeGameState gameState;
-        SnakeGame game;
+        OthelloGameState gameState;
+        OthelloGame game;
 
         int[,] lastTileData;
 
@@ -30,11 +30,11 @@ namespace AI_Snake
         private void btnCreate_Click(object sender, EventArgs e)
         {
             movesTodo = new List<Tuple<int, List<object>>>();
-            //game = new SnakeGame();
-            //gameState = game.createInitialState(new Point((int)nudWidth.Value, (int)nudHeight.Value), (int)nudSnakeLength.Value, (int)nudNumbSnakes.Value, (int)nudBlocks.Value);
+            game = new OthelloGame();
+            gameState = game.createInitialState();
 
-            //lblGameStatus.Text = "GAME STARTED.";
-            //this.drawGame();
+            lblGameStatus.Text = "GAME STARTED.";
+            this.drawGame();
         }
 
         private void drawGame()
@@ -45,27 +45,7 @@ namespace AI_Snake
 
         private int[,] createTiles()
         {
-            int[,] tiles = new int[gameState.Size.Y, gameState.Size.X];
-
-            for (int i = 0; i < gameState.Blocks.Count; i++)
-                tiles[gameState.Blocks[i].Y, gameState.Blocks[i].X] = 1;
-
-            tiles[gameState.Food.Y, gameState.Food.X] = 5;
-
-            for (int i = 0; i < gameState.Blocks.Count; i++)
-                tiles[gameState.Blocks[i].Y, gameState.Blocks[i].X] = 1;
-
-
-            for (int i = 0; i < gameState.Snakes.Count; i++)
-            {
-                for (int s = 0; s < gameState.Snakes[i].Body.Count; s++)
-                    tiles[gameState.Snakes[i].Body[s].Y, gameState.Snakes[i].Body[s].X] = 3;
-
-
-                tiles[gameState.Snakes[i].Tail.Y, gameState.Snakes[i].Tail.X] = 4;
-                tiles[gameState.Snakes[i].Head.Y, gameState.Snakes[i].Head.X] = 2;
-            }
-
+            int[,] tiles =  gameState.Items;
 
             return tiles;
         }
@@ -99,7 +79,7 @@ namespace AI_Snake
                     for (int x = 0; x < lastTileData.GetLength(1); x++)
                     {
                         Brush thisBrush = Brushes.White;
-                        switch (lastTileData[y, x])
+                        switch (lastTileData[x, y])
                         {
                             case 0:
                                 thisBrush = Brushes.White; // empty
@@ -125,54 +105,32 @@ namespace AI_Snake
             }
         }
 
-        private void GameForm_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (game != null && movesTodo.Count == 0)
-            {
-                if (e.KeyChar.Equals('w'))
-                {
-                    gameState = (SnakeGameState)game.makeMove(gameState, 0, 'N');
-                }
-                else if (e.KeyChar.Equals('s'))
-                {
-                    gameState = (SnakeGameState)game.makeMove(gameState, 0, 'S');
-                }
-                else if (e.KeyChar.Equals('a'))
-                {
-                    gameState = (SnakeGameState)game.makeMove(gameState, 0, 'W');
-                }
-                else if (e.KeyChar.Equals('d'))
-                {
-                    gameState = (SnakeGameState)game.makeMove(gameState, 0, 'E');
-                }
-                drawGame();
-            }
-        }
-
-        private void runAI(List<object> moves, int player)
-        {
-            movesTodo.Add(new Tuple<int, List<object>>(player, moves));
-        }
 
 
         private void tmrGameAI_Tick(object sender, EventArgs e)
         {
-            if (movesTodo.Count > 0)
-            {
-                for (int i = 0; i < movesTodo.Count; i++)
-                {
-                    gameState = (SnakeGameState)game.makeMove(gameState, movesTodo[i].Item1, movesTodo[i].Item2[0]);
-                    movesTodo[i].Item2.RemoveAt(0);
-                    if (movesTodo[i].Item2.Count == 0)
-                    {
-                        movesTodo.RemoveAt(i);
-                        i--;
-                    }
-                }
-                drawGame();
-            }
+
         }
 
+        private void pnlGame_MouseClick(object sender, MouseEventArgs e)
+        {
+            //reverse mouse position
+            int borderWidthPx = 20;
+            int widthTotal = pnlGame.Width - borderWidthPx * 2;
+            int heightTotal = pnlGame.Height - borderWidthPx * 2;
 
+            int widthBox = widthTotal / lastTileData.GetLength(0);
+            int heightBox = heightTotal / lastTileData.GetLength(1);
+            int boxSize = Math.Min(widthBox, heightBox);
+
+            Point mouseRelative = new Point(e.X - borderWidthPx, e.Y - borderWidthPx);
+
+            Point actual = new Point((int)Math.Floor((double)mouseRelative.X / (double)boxSize), (int)Math.Floor((double)mouseRelative.Y / (double)boxSize));
+            Console.Write(actual.X + " " + actual.Y);
+
+
+            gameState = (OthelloGameState)game.makeMove(gameState, 1, actual); 
+            drawGame();
+        }
     }
 }
