@@ -44,7 +44,7 @@ namespace AI_Snake
 
             for (int i = 0; i < compare.snakes.Count; i++)
             {
-                if (GameForm.headOnlyState)
+                if (SnakeGameForm.headOnlyState)
                 {
                     if (compare.snakes[i].Head.X != snakes[i].Head.X) return false;
                     if (compare.snakes[i].Head.Y != snakes[i].Head.Y) return false;
@@ -69,7 +69,7 @@ namespace AI_Snake
             return true;
         }
 
-        public override SnakeGameState Copy(object moveToGetHere)
+        public override GameState Copy(object moveToGetHere)
         {
             Point sizeCopy = new Point(size.X, size.Y);
             List<Snake> snakesCopy = new List<Snake>();

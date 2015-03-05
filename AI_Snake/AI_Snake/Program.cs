@@ -15,7 +15,7 @@ namespace AI_Snake
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GameForm());
+            Application.Run(new OthelloGameForm());
         }
     }
 }

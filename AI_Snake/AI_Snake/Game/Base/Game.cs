@@ -23,7 +23,7 @@ namespace AI_Snake
 
         protected abstract GameState makeGameMove(GameState gameState, int player, Object move);
 
-        public abstract List<Object> getMoves();
+        public abstract List<Object> getMoves(GameState gameState);
 
         /// <summary>
         /// 

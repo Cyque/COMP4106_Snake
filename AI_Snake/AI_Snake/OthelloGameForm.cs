@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace AI_Snake
 {
-    public partial class GameForm : Form
+    public partial class OthelloGameForm : Form
     {
         SnakeGameState gameState;
         SnakeGame game;
@@ -19,7 +19,7 @@ namespace AI_Snake
 
         List<Tuple<int, List<object>>> movesTodo = new List<Tuple<int, List<object>>>();
 
-        public GameForm()
+        public OthelloGameForm()
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.AllPaintingInWmPaint |
@@ -30,11 +30,11 @@ namespace AI_Snake
         private void btnCreate_Click(object sender, EventArgs e)
         {
             movesTodo = new List<Tuple<int, List<object>>>();
-            game = new SnakeGame();
-            gameState = game.createInitialState(new Point((int)nudWidth.Value, (int)nudHeight.Value), (int)nudSnakeLength.Value, (int)nudNumbSnakes.Value, (int)nudBlocks.Value);
+            //game = new SnakeGame();
+            //gameState = game.createInitialState(new Point((int)nudWidth.Value, (int)nudHeight.Value), (int)nudSnakeLength.Value, (int)nudNumbSnakes.Value, (int)nudBlocks.Value);
 
-            lblGameStatus.Text = "GAME STARTED.";
-            this.drawGame();
+            //lblGameStatus.Text = "GAME STARTED.";
+            //this.drawGame();
         }
 
         private void drawGame()
@@ -154,50 +154,6 @@ namespace AI_Snake
             movesTodo.Add(new Tuple<int, List<object>>(player, moves));
         }
 
-        private void btnAI_Click(object sender, EventArgs e)
-        {
-            if (!radManual.Checked)
-            {
-
-                for (int sn = 0; sn < gameState.Snakes.Count; sn++)
-                {
-                    GameAI search = null;
-                    if (radBreadth.Checked)
-                        search = new BreadthFirst();
-                    else if (radDepth.Checked)
-                        search = new DepthFirst();
-                    else if (RadAStar.Checked)
-                    {
-                        if (radManhattan.Checked)
-                            search = new AStar(0);
-                        else if (radEuclidean.Checked)
-                            search = new AStar(1);
-                        else if (radClosestToCenter.Checked)
-                            search = new AStar(2);
-                        else if (radModMan.Checked)
-                            search = new AStar(3);
-                        else if (radMixed.Checked)
-                            search = new AStar(4);
-                    }
-
-
-                    List<object> result = search.solveGame(gameState, new SnakeGame(), sn);
-
-                    if (result == null)
-                        Console.WriteLine("No solution");
-                    else
-                    {
-                        for (int i = 0; i < result.Count; i++)
-                            Console.Write(result[i] + ", ");
-                        Console.WriteLine();
-                        Console.WriteLine(search.nodesExpanded);
-                        Console.WriteLine();
-
-                        runAI(result, sn);
-                    }
-                }
-            }
-        }
 
         private void tmrGameAI_Tick(object sender, EventArgs e)
         {
@@ -217,11 +173,6 @@ namespace AI_Snake
             }
         }
 
-        public static bool headOnlyState = false;
-        private void chkFullState_CheckedChanged(object sender, EventArgs e)
-        {
-            headOnlyState = chkFullState.Checked;
-        }
 
     }
 }

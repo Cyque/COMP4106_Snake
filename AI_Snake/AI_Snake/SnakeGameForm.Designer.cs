@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 namespace AI_Snake
 {
-    partial class GameForm
+    partial class SnakeGameForm
     {
         /// <summary>
         /// Required designer variable.

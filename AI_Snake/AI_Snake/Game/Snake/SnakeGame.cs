@@ -16,7 +16,7 @@ namespace AI_Snake
         { }
 
 
-        public override List<Object> getMoves()
+        public override List<Object> getMoves(GameState gameState)
         {
             return new List<object>(new Object[] { 'N', 'E', 'W', 'S' });
         }

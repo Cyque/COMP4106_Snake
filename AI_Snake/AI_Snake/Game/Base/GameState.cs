@@ -29,7 +29,7 @@ namespace AI_Snake
         /// </summary>
         /// <param name="moveToGetHere">The move taken to get to the copied state</param>
         /// <returns></returns>
-        public abstract SnakeGameState Copy(object moveToGetHere);
+        public abstract GameState Copy(object moveToGetHere);
 
         public abstract bool Equals(GameState compare);
 

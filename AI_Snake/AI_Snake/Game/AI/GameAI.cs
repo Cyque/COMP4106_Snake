@@ -14,7 +14,7 @@ namespace AI_Snake
             nodesExpanded = 0;
             firstState.reachedGoalHere = false; //reset the goal reach
             firstState.stepsToReach = 0;
-            List<object> availableMoves = game.getMoves();
+            List<object> availableMoves = game.getMoves(firstState);
 
             List<GameState> evaluated = new List<GameState>();
 
