@@ -18,7 +18,6 @@ namespace AI_Snake
             //newS.reachedGoalHere = false;
             GameState newS = makeGameMove(gameState, player, move);
             return newS;
-            
         }
 
         protected abstract GameState makeGameMove(GameState gameState, int player, Object move);

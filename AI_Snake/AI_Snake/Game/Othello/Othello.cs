@@ -239,7 +239,7 @@ namespace AI_Snake
             OthelloGameState newS = (OthelloGameState)((OthelloGameState)gameState).Copy(move);
             Point m = (Point)move;
 
-            List<object> mvs = getMoves(gameState);
+            List<object> mvs = getMoves(newS);
 
             bool canMove = false;
             for (int i = 0; i < mvs.Count; i++)
@@ -252,11 +252,13 @@ namespace AI_Snake
             }
             if (canMove)
             {
-                newS.Items[m.X, m.Y] = player + 1;
+                newS.Items[m.X, m.Y] = newS.WhosTurn;
 
-                flipPieces(newS.Items, m, player + 1);
+                flipPieces(newS.Items, m, newS.WhosTurn);
+                return newS;
             }
-            return newS;
+            else
+                return gameState;
         }
 
 

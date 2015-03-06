@@ -48,6 +48,7 @@ namespace AI_Snake
             this.stsGame = new System.Windows.Forms.StatusStrip();
             this.lblGameStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tmrGameAI = new System.Windows.Forms.Timer(this.components);
+            this.btnExecAI = new System.Windows.Forms.Button();
             this.pnlOptions.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -59,6 +60,7 @@ namespace AI_Snake
             // 
             // pnlOptions
             // 
+            this.pnlOptions.Controls.Add(this.btnExecAI);
             this.pnlOptions.Controls.Add(this.groupBox1);
             this.pnlOptions.Controls.Add(this.groupBox3);
             this.pnlOptions.Controls.Add(this.groupBox2);
@@ -229,7 +231,7 @@ namespace AI_Snake
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(8, 241);
+            this.btnCreate.Location = new System.Drawing.Point(8, 298);
             this.btnCreate.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(145, 38);
@@ -270,6 +272,16 @@ namespace AI_Snake
             // 
             this.tmrGameAI.Enabled = true;
             this.tmrGameAI.Tick += new System.EventHandler(this.tmrGameAI_Tick);
+            // 
+            // btnExecAI
+            // 
+            this.btnExecAI.Location = new System.Drawing.Point(8, 243);
+            this.btnExecAI.Name = "btnExecAI";
+            this.btnExecAI.Size = new System.Drawing.Size(145, 23);
+            this.btnExecAI.TabIndex = 6;
+            this.btnExecAI.Text = "Exec AI";
+            this.btnExecAI.UseVisualStyleBackColor = true;
+            this.btnExecAI.Click += new System.EventHandler(this.btnExecAI_Click);
             // 
             // OthelloGameForm
             // 
@@ -316,6 +328,7 @@ namespace AI_Snake
         private RadioButton radP2Other;
         private RadioButton radP2BW;
         private RadioButton radP2Player;
+        private Button btnExecAI;
     }
 }
 

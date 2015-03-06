@@ -85,19 +85,10 @@ namespace AI_Snake
                                 thisBrush = Brushes.White; // empty
                                 break;
                             case 1:
-                                thisBrush = Brushes.Black; // wall
+                                thisBrush = Brushes.Black; // black
                                 break;
                             case 2:
-                                thisBrush = Brushes.Green; // head
-                                break;
-                            case 3:
-                                thisBrush = Brushes.Purple; // body
-                                break;
-                            case 4:
-                                thisBrush = Brushes.DarkBlue; // tail
-                                break;
-                            case 5:
-                                thisBrush = Brushes.Red; // food
+                                thisBrush = Brushes.Green; // white
                                 break;
                         }
                         e.Graphics.FillRectangle(thisBrush, new Rectangle(borderWidthPx + boxSize * x, borderWidthPx + boxSize * y, boxSize, boxSize));
@@ -129,8 +120,16 @@ namespace AI_Snake
             Console.Write(actual.X + " " + actual.Y);
 
 
-            gameState = (OthelloGameState)game.makeMove(gameState, 1, actual); 
+            gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, actual); 
             drawGame();
         }
+
+        private void btnExecAI_Click(object sender, EventArgs e)
+        {
+            MiniMax mm = new MiniMax();
+            gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMax(game, gameState, 3, true));
+            drawGame();
+        }
+
     }
 }
