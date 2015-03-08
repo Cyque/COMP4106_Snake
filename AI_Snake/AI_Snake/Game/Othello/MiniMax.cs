@@ -16,18 +16,22 @@ namespace AI_Snake
             object move = null;
 
             GameState rollBackState = result.Item2;
-            //rollback
-            while (rollBackState.lastState != null)
+
+            do
             {
                 move = rollBackState.moveToGetHere;
                 rollBackState = rollBackState.lastState;
             }
+            while (!rollBackState.lastState.Equals(node));
+            move = rollBackState.moveToGetHere;
 
             return move;
         }
 
         private Tuple<float, GameState> miniMaxEx(Game game, GameState node, int depth, bool maximizingPlayer)
         {
+            //Console.WriteLine("Step");
+            //Console.WriteLine(node);
             if (depth == 0 || game.isGameOver(node) != -1)
                 return new Tuple<float, GameState>(heuristic(node), node);
 
@@ -57,7 +61,7 @@ namespace AI_Snake
                 {
                     children.Add(game.makeMove(node, -1, moves[i])); // create child node
                     Tuple<float, GameState> value = miniMaxEx(game, children[i], depth - 1, true);
-                    if (value.Item1 > bestValue.Item1)
+                    if (value.Item1 < bestValue.Item1)
                         bestValue = value;
                 }
 

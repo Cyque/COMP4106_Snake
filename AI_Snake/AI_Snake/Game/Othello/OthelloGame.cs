@@ -255,12 +255,12 @@ namespace AI_Snake
                 newS.Items[m.X, m.Y] = newS.WhosTurn;
 
                 flipPieces(newS.Items, m, newS.WhosTurn);
+                newS.WhosTurn = newS.WhosTurn == 1 ? 2 : 1; 
                 return newS;
             }
             else
                 return gameState;
         }
-
 
 
         public override List<object> getMoves(GameState gameState)
@@ -319,7 +319,7 @@ namespace AI_Snake
             tiles[4, 3] = 1;
             tiles[4, 4] = 2;
 
-            return new OthelloGameState(null, null, 0, tiles, 0);
+            return new OthelloGameState(null, null, 0, tiles, 1);
         }
     }
 }

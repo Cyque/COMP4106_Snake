@@ -127,7 +127,7 @@ namespace AI_Snake
         private void btnExecAI_Click(object sender, EventArgs e)
         {
             MiniMax mm = new MiniMax();
-            gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMax(game, gameState, 3, true));
+            gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMax(game, gameState, 5, gameState.WhosTurn == 1));
             drawGame();
         }
 

@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game\Othello\MiniMax.cs" />
-    <Compile Include="Game\Othello\Othello.cs" />
+    <Compile Include="Game\Othello\OthelloGame.cs" />
     <Compile Include="Game\Othello\OthelloGameState.cs" />
     <Compile Include="OthelloGameForm.cs">
       <SubType>Form</SubType>

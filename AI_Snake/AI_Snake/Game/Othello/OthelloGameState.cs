@@ -12,7 +12,7 @@ namespace AI_Snake
         private int whosTurn;
 
         public int[,] Items { get { return items; } }
-        public int WhosTurn { get { return whosTurn; } }
+        public int WhosTurn { get { return whosTurn; } set { whosTurn = value; } }
 
         public OthelloGameState(OthelloGameState lastState, object moveToGetHere, int stepsToReach, int[,] items, int whosTurn)
             : base(lastState, moveToGetHere, stepsToReach)
@@ -33,7 +33,7 @@ namespace AI_Snake
                 }
             }
 
-            return new OthelloGameState(this, moveToGetHere, stepsToReach + 1, newItems, whosTurn == 1 ? 2: 1);
+            return new OthelloGameState(this, moveToGetHere, stepsToReach + 1, newItems, whosTurn);
         }
 
         public override bool Equals(GameState compare)
@@ -52,7 +52,24 @@ namespace AI_Snake
             }
 
 
+
             return true;
         }
+
+        public override string ToString()
+        {
+            String s = "";
+            for (int x = 0; x < items.GetLength(0); x++)
+            {
+                for (int y = 0; y < items.GetLength(1); y++)
+                {
+                    s += items[x, y];
+                }
+                s += "\n";
+            }
+
+            return s;
+        }
+
     }
 }
