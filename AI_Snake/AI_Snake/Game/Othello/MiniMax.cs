@@ -67,6 +67,7 @@ namespace AI_Snake
             {
                 Tuple<float, GameState> bestValue = new Tuple<float, GameState>(float.MinValue, null);
 
+                bool skip = false;
                 List<object> moves = game.getMoves(node);
                 List<GameState> children = new List<GameState>();
                 for (int i = 0; i < moves.Count; i++)
@@ -76,22 +77,26 @@ namespace AI_Snake
                     if (value == null) //special case, the expanded node had no possible moves. I.e, it becomes this players turn again
                     {
                         //now copy the state, checnge player to opposite player and evaluate with !maximizingPlayer again.
-                        GameState newG = children[i].Copy(children[i].moveToGetHere);
                         ((OthelloGameState)children[i]).WhosTurn = ((OthelloGameState)children[i]).WhosTurn == 1 ? 2 : 1;
-                        value = miniMaxEx(game, newG, depth - 1, true);
+                        value = miniMaxEx(game, children[i], depth - 1, true);
+                        if (value == null)
+                            //no player can move, game Over
+                            skip = true;
                     }
                     if (value.Item1 > bestValue.Item1)
                         bestValue = value;
                 }
 
-                if (bestValue.Item1.Equals(float.MinValue))
-                    return null;
+                if (!skip)
+                    if (bestValue.Item1.Equals(float.MinValue))
+                        return null;
                 return bestValue;
             }
             else
             {
                 Tuple<float, GameState> bestValue = new Tuple<float, GameState>(float.MaxValue, null);
 
+                bool skip = false;
                 List<object> moves = game.getMoves(node);
                 List<GameState> children = new List<GameState>();
                 for (int i = 0; i < moves.Count; i++)
@@ -101,13 +106,16 @@ namespace AI_Snake
                     if (value == null) //special case, the expanded node had no possible moves. I.e, it becomes this players turn again
                     {
                         //now copy the state, checnge player to opposite player and evaluate with !maximizingPlayer again.
-                        GameState newG = children[i].Copy(children[i].moveToGetHere);
                         ((OthelloGameState)children[i]).WhosTurn = ((OthelloGameState)children[i]).WhosTurn == 1 ? 2 : 1;
-                        value = miniMaxEx(game, newG, depth - 1, false);
+                        value = miniMaxEx(game, children[i], depth - 1, false);
+                        if (value == null)
+                            //no player can move, game Over
+                            skip = true;
                     }
 
-                    if (value.Item1 < bestValue.Item1)
-                        bestValue = value;
+                    if (!skip)
+                        if (value.Item1 < bestValue.Item1)
+                            bestValue = value;
                 }
 
                 if (bestValue.Item1.Equals(float.MaxValue))
@@ -126,6 +134,7 @@ namespace AI_Snake
             {
                 Tuple<float, GameState> bestValue = new Tuple<float, GameState>(float.MinValue, null);
 
+                bool skip = false;
                 List<object> moves = game.getMoves(node);
                 List<GameState> children = new List<GameState>();
                 for (int i = 0; i < moves.Count; i++)
@@ -137,13 +146,20 @@ namespace AI_Snake
                         //now copy the state, checnge player to opposite player and evaluate with !maximizingPlayer again.
                         ((OthelloGameState)children[i]).WhosTurn = ((OthelloGameState)children[i]).WhosTurn == 1 ? 2 : 1;
                         value = miniMaxAlphaBeta(game, children[i], depth - 1, true, alpha, beta);
+                        if (value == null)
+                            //no player can move, game Over
+                            skip = true;
                     }
-                    if (value.Item1 > bestValue.Item1)
-                        bestValue = value;
 
-                    alpha = (double)Math.Max(alpha, value.Item1);
-                    if (beta <= alpha)
-                        break;
+                    if (!skip)
+                    {
+                        if (value.Item1 > bestValue.Item1)
+                            bestValue = value;
+
+                        alpha = (double)Math.Max(alpha, value.Item1);
+                        if (beta <= alpha)
+                            break;
+                    }
                 }
 
                 if (bestValue.Item1.Equals(float.MinValue))
@@ -154,6 +170,7 @@ namespace AI_Snake
             {
                 Tuple<float, GameState> bestValue = new Tuple<float, GameState>(float.MaxValue, null);
 
+                bool skip = false;
                 List<object> moves = game.getMoves(node);
                 List<GameState> children = new List<GameState>();
                 for (int i = 0; i < moves.Count; i++)
@@ -165,13 +182,21 @@ namespace AI_Snake
                         //now copy the state, checnge player to opposite player and evaluate with !maximizingPlayer again.
                         ((OthelloGameState)children[i]).WhosTurn = ((OthelloGameState)children[i]).WhosTurn == 1 ? 2 : 1;
                         value = miniMaxAlphaBeta(game, children[i], depth - 1, false, alpha, beta);
-                    }
-                    if (value.Item1 < bestValue.Item1)
-                        bestValue = value;
+                        if (value == null)
+                            //no player can move, game Over
+                            skip = true;
 
-                    beta = (double)Math.Min(beta, value.Item1);
-                    if (beta <= alpha)
-                        break;
+
+                    }
+                    if (!skip)
+                    {
+                        if (value.Item1 < bestValue.Item1)
+                            bestValue = value;
+
+                        beta = (double)Math.Min(beta, value.Item1);
+                        if (beta <= alpha)
+                            break;
+                    }
                 }
 
                 if (bestValue.Item1.Equals(float.MaxValue))

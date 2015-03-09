@@ -242,27 +242,31 @@ namespace AI_Snake
 
             if (mvs.Count == 0) // no possible moves. switch to other players turn without making move
             {
-                newS.WhosTurn = newS.WhosTurn == 1 ? 2 : 1; 
+                newS.WhosTurn = newS.WhosTurn == 1 ? 2 : 1;
                 return newS;
             }
-
-            Point m = (Point)move;
-            bool canMove = false;
-            for (int i = 0; i < mvs.Count; i++)
+            if (move != null)
             {
-                if (((Point)mvs[i]).X == ((Point)move).X
-                    && ((Point)mvs[i]).Y == ((Point)move).Y)
+                Point m = (Point)move;
+                bool canMove = false;
+                for (int i = 0; i < mvs.Count; i++)
                 {
-                    canMove = true;
+                    if (((Point)mvs[i]).X == ((Point)move).X
+                        && ((Point)mvs[i]).Y == ((Point)move).Y)
+                    {
+                        canMove = true;
+                    }
                 }
-            }
-            if (canMove)
-            {
-                newS.Items[m.X, m.Y] = newS.WhosTurn;
+                if (canMove)
+                {
+                    newS.Items[m.X, m.Y] = newS.WhosTurn;
 
-                flipPieces(newS.Items, m, newS.WhosTurn);
-                newS.WhosTurn = newS.WhosTurn == 1 ? 2 : 1; 
-                return newS;
+                    flipPieces(newS.Items, m, newS.WhosTurn);
+                    newS.WhosTurn = newS.WhosTurn == 1 ? 2 : 1;
+                    return newS;
+                }
+                else
+                    return gameState;
             }
             else
                 return gameState;
@@ -285,6 +289,7 @@ namespace AI_Snake
         {
             OthelloGameState cp = (OthelloGameState)gameState;
 
+
             int count1 = 0;
             int count2 = 0;
 
@@ -295,8 +300,6 @@ namespace AI_Snake
                         count1++;
                     if (cp.Items[x, y] == 2)
                         count2++;
-                    if (cp.Items[x, y] == 0)
-                        return -1;
                 }
 
             if (count1 + count2 == 8 * 8)
@@ -308,6 +311,27 @@ namespace AI_Snake
                 else
                     return 2;
             }
+
+
+            //check for no possible moves from both players
+            if (getMoves(cp).Count == 0)
+            {
+                cp.WhosTurn = cp.WhosTurn == 1 ? 2 : 1;
+                if (getMoves(cp).Count == 0)
+                {
+                    cp.WhosTurn = cp.WhosTurn == 1 ? 2 : 1;
+
+                    if (count1 > count2)
+                        return 0;
+                    else if (count1 < count2)
+                        return 1;
+                    else
+                        return 2;
+                }
+            }
+
+            
+
 
 
             return -1;
