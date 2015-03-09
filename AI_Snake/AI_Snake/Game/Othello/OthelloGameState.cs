@@ -46,6 +46,7 @@ namespace AI_Snake
                 {
                     if (items[x, y] != cp.items[x, y])
                     {
+                        int i = 0;
                         return false;
                     }
                 }

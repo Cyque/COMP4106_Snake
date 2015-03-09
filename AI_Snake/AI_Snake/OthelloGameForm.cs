@@ -33,7 +33,7 @@ namespace AI_Snake
             game = new OthelloGame();
             gameState = game.createInitialState();
 
-            lblGameStatus.Text = "GAME STARTED.";
+            lblStatus.Text = "Black's Turn";
             this.drawGame();
         }
 
@@ -45,7 +45,7 @@ namespace AI_Snake
 
         private int[,] createTiles()
         {
-            int[,] tiles =  gameState.Items;
+            int[,] tiles = gameState.Items;
 
             return tiles;
         }
@@ -91,7 +91,13 @@ namespace AI_Snake
                                 thisBrush = Brushes.Green; // white
                                 break;
                         }
-                        e.Graphics.FillRectangle(thisBrush, new Rectangle(borderWidthPx + boxSize * x, borderWidthPx + boxSize * y, boxSize, boxSize));
+
+                        e.Graphics.FillRectangle(Brushes.White, new Rectangle(borderWidthPx + boxSize * x, borderWidthPx + boxSize * y, boxSize, boxSize));
+
+                        if (thisBrush != Brushes.White)
+                        {
+                            e.Graphics.FillEllipse(thisBrush, new Rectangle(borderWidthPx + boxSize * x, borderWidthPx + boxSize * y, boxSize, boxSize));
+                        }
                     }
             }
         }
@@ -120,15 +126,53 @@ namespace AI_Snake
             Console.Write(actual.X + " " + actual.Y);
 
 
-            gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, actual); 
+            gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, actual);
             drawGame();
         }
 
         private void btnExecAI_Click(object sender, EventArgs e)
         {
             MiniMax mm = new MiniMax();
-            gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMax(game, gameState, 5, gameState.WhosTurn == 1));
+
+            if (gameState.WhosTurn == 1) // p1
+            {
+                if (radP1BW.Checked)
+                    MiniMax.heur = 0;
+                if (radP1Other.Checked)
+                    MiniMax.heur = 1;
+                if (chkP1AB.Checked)
+                    gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMaxAlphaBeta(game, gameState, 5, gameState.WhosTurn == 1));
+                else
+                    gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMax(game, gameState, 5, gameState.WhosTurn == 1));
+
+            }
+            else if (gameState.WhosTurn == 2) //p2
+            {
+                if (radP2BW.Checked)
+                    MiniMax.heur = 0;
+                if (radP2Other.Checked)
+                    MiniMax.heur = 1;
+                if (chkP2AB.Checked)
+                    gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMaxAlphaBeta(game, gameState, 5, gameState.WhosTurn == 1));
+                else
+                    gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMax(game, gameState, 5, gameState.WhosTurn == 1));
+
+            }
+
             drawGame();
+
+            if (gameState.WhosTurn == 1)
+                lblStatus.Text = "Black's Turn";
+            else
+                lblStatus.Text = "White's Turn";
+
+
+            int gameOver = game.isGameOver(gameState);
+            if (gameOver != -1)
+            {
+                lblStatus.Text = "Winner: " + (gameOver == 0 ? "Black" : "White");
+            }
+
         }
 
     }

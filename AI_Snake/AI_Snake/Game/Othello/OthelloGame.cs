@@ -237,10 +237,16 @@ namespace AI_Snake
         protected override GameState makeGameMove(GameState gameState, int player, object move)
         {
             OthelloGameState newS = (OthelloGameState)((OthelloGameState)gameState).Copy(move);
-            Point m = (Point)move;
 
             List<object> mvs = getMoves(newS);
 
+            if (mvs.Count == 0) // no possible moves. switch to other players turn without making move
+            {
+                newS.WhosTurn = newS.WhosTurn == 1 ? 2 : 1; 
+                return newS;
+            }
+
+            Point m = (Point)move;
             bool canMove = false;
             for (int i = 0; i < mvs.Count; i++)
             {

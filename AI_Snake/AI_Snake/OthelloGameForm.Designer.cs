@@ -31,6 +31,7 @@ namespace AI_Snake
         {
             this.components = new System.ComponentModel.Container();
             this.pnlOptions = new System.Windows.Forms.Panel();
+            this.btnExecAI = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chkP2AB = new System.Windows.Forms.CheckBox();
             this.radP2Other = new System.Windows.Forms.RadioButton();
@@ -48,7 +49,7 @@ namespace AI_Snake
             this.stsGame = new System.Windows.Forms.StatusStrip();
             this.lblGameStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tmrGameAI = new System.Windows.Forms.Timer(this.components);
-            this.btnExecAI = new System.Windows.Forms.Button();
+            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlOptions.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -71,6 +72,16 @@ namespace AI_Snake
             this.pnlOptions.Name = "pnlOptions";
             this.pnlOptions.Size = new System.Drawing.Size(161, 504);
             this.pnlOptions.TabIndex = 0;
+            // 
+            // btnExecAI
+            // 
+            this.btnExecAI.Location = new System.Drawing.Point(8, 243);
+            this.btnExecAI.Name = "btnExecAI";
+            this.btnExecAI.Size = new System.Drawing.Size(145, 23);
+            this.btnExecAI.TabIndex = 6;
+            this.btnExecAI.Text = "Exec AI";
+            this.btnExecAI.UseVisualStyleBackColor = true;
+            this.btnExecAI.Click += new System.EventHandler(this.btnExecAI_Click);
             // 
             // groupBox1
             // 
@@ -256,7 +267,8 @@ namespace AI_Snake
             // stsGame
             // 
             this.stsGame.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblGameStatus});
+            this.lblGameStatus,
+            this.lblStatus});
             this.stsGame.Location = new System.Drawing.Point(0, 482);
             this.stsGame.Name = "stsGame";
             this.stsGame.Padding = new System.Windows.Forms.Padding(1, 0, 10, 0);
@@ -273,15 +285,11 @@ namespace AI_Snake
             this.tmrGameAI.Enabled = true;
             this.tmrGameAI.Tick += new System.EventHandler(this.tmrGameAI_Tick);
             // 
-            // btnExecAI
+            // lblStatus
             // 
-            this.btnExecAI.Location = new System.Drawing.Point(8, 243);
-            this.btnExecAI.Name = "btnExecAI";
-            this.btnExecAI.Size = new System.Drawing.Size(145, 23);
-            this.btnExecAI.TabIndex = 6;
-            this.btnExecAI.Text = "Exec AI";
-            this.btnExecAI.UseVisualStyleBackColor = true;
-            this.btnExecAI.Click += new System.EventHandler(this.btnExecAI_Click);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(52, 17);
+            this.lblStatus.Text = "lblStatus";
             // 
             // OthelloGameForm
             // 
@@ -329,6 +337,7 @@ namespace AI_Snake
         private RadioButton radP2BW;
         private RadioButton radP2Player;
         private Button btnExecAI;
+        private ToolStripStatusLabel lblStatus;
     }
 }
 
