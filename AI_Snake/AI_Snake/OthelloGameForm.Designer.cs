@@ -36,20 +36,20 @@ namespace AI_Snake
             this.chkP2AB = new System.Windows.Forms.CheckBox();
             this.radP2Other = new System.Windows.Forms.RadioButton();
             this.radP2BW = new System.Windows.Forms.RadioButton();
-            this.radP2Player = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.nudTimerSpeed = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.chkP1AB = new System.Windows.Forms.CheckBox();
             this.radP1Other = new System.Windows.Forms.RadioButton();
             this.radP1BW = new System.Windows.Forms.RadioButton();
-            this.radP1Player = new System.Windows.Forms.RadioButton();
             this.btnCreate = new System.Windows.Forms.Button();
             this.pnlGame = new System.Windows.Forms.Panel();
             this.stsGame = new System.Windows.Forms.StatusStrip();
             this.lblGameStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tmrGameAI = new System.Windows.Forms.Timer(this.components);
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tmrGameAI = new System.Windows.Forms.Timer(this.components);
+            this.nudDepth = new System.Windows.Forms.NumericUpDown();
+            this.lblDepth = new System.Windows.Forms.Label();
             this.pnlOptions.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -57,10 +57,13 @@ namespace AI_Snake
             this.groupBox2.SuspendLayout();
             this.pnlGame.SuspendLayout();
             this.stsGame.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlOptions
             // 
+            this.pnlOptions.Controls.Add(this.lblDepth);
+            this.pnlOptions.Controls.Add(this.nudDepth);
             this.pnlOptions.Controls.Add(this.btnExecAI);
             this.pnlOptions.Controls.Add(this.groupBox1);
             this.pnlOptions.Controls.Add(this.groupBox3);
@@ -88,7 +91,6 @@ namespace AI_Snake
             this.groupBox1.Controls.Add(this.chkP2AB);
             this.groupBox1.Controls.Add(this.radP2Other);
             this.groupBox1.Controls.Add(this.radP2BW);
-            this.groupBox1.Controls.Add(this.radP2Player);
             this.groupBox1.Location = new System.Drawing.Point(4, 126);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
@@ -122,26 +124,15 @@ namespace AI_Snake
             // radP2BW
             // 
             this.radP2BW.AutoSize = true;
+            this.radP2BW.Checked = true;
             this.radP2BW.Location = new System.Drawing.Point(4, 39);
             this.radP2BW.Margin = new System.Windows.Forms.Padding(2);
             this.radP2BW.Name = "radP2BW";
             this.radP2BW.Size = new System.Drawing.Size(90, 17);
             this.radP2BW.TabIndex = 1;
+            this.radP2BW.TabStop = true;
             this.radP2BW.Text = "Minimax - BW";
             this.radP2BW.UseVisualStyleBackColor = true;
-            // 
-            // radP2Player
-            // 
-            this.radP2Player.AutoSize = true;
-            this.radP2Player.Checked = true;
-            this.radP2Player.Location = new System.Drawing.Point(4, 17);
-            this.radP2Player.Margin = new System.Windows.Forms.Padding(2);
-            this.radP2Player.Name = "radP2Player";
-            this.radP2Player.Size = new System.Drawing.Size(54, 17);
-            this.radP2Player.TabIndex = 0;
-            this.radP2Player.TabStop = true;
-            this.radP2Player.Text = "Player";
-            this.radP2Player.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -185,7 +176,6 @@ namespace AI_Snake
             this.groupBox2.Controls.Add(this.chkP1AB);
             this.groupBox2.Controls.Add(this.radP1Other);
             this.groupBox2.Controls.Add(this.radP1BW);
-            this.groupBox2.Controls.Add(this.radP1Player);
             this.groupBox2.Location = new System.Drawing.Point(2, 11);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
@@ -219,30 +209,19 @@ namespace AI_Snake
             // radP1BW
             // 
             this.radP1BW.AutoSize = true;
+            this.radP1BW.Checked = true;
             this.radP1BW.Location = new System.Drawing.Point(4, 39);
             this.radP1BW.Margin = new System.Windows.Forms.Padding(2);
             this.radP1BW.Name = "radP1BW";
             this.radP1BW.Size = new System.Drawing.Size(90, 17);
             this.radP1BW.TabIndex = 1;
+            this.radP1BW.TabStop = true;
             this.radP1BW.Text = "Minimax - BW";
             this.radP1BW.UseVisualStyleBackColor = true;
             // 
-            // radP1Player
-            // 
-            this.radP1Player.AutoSize = true;
-            this.radP1Player.Checked = true;
-            this.radP1Player.Location = new System.Drawing.Point(4, 17);
-            this.radP1Player.Margin = new System.Windows.Forms.Padding(2);
-            this.radP1Player.Name = "radP1Player";
-            this.radP1Player.Size = new System.Drawing.Size(54, 17);
-            this.radP1Player.TabIndex = 0;
-            this.radP1Player.TabStop = true;
-            this.radP1Player.Text = "Player";
-            this.radP1Player.UseVisualStyleBackColor = true;
-            // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(8, 298);
+            this.btnCreate.Location = new System.Drawing.Point(8, 407);
             this.btnCreate.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(145, 38);
@@ -280,16 +259,37 @@ namespace AI_Snake
             this.lblGameStatus.Name = "lblGameStatus";
             this.lblGameStatus.Size = new System.Drawing.Size(0, 17);
             // 
-            // tmrGameAI
-            // 
-            this.tmrGameAI.Enabled = true;
-            this.tmrGameAI.Tick += new System.EventHandler(this.tmrGameAI_Tick);
-            // 
             // lblStatus
             // 
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(52, 17);
             this.lblStatus.Text = "lblStatus";
+            // 
+            // tmrGameAI
+            // 
+            this.tmrGameAI.Enabled = true;
+            this.tmrGameAI.Tick += new System.EventHandler(this.tmrGameAI_Tick);
+            // 
+            // nudDepth
+            // 
+            this.nudDepth.Location = new System.Drawing.Point(44, 267);
+            this.nudDepth.Name = "nudDepth";
+            this.nudDepth.Size = new System.Drawing.Size(52, 20);
+            this.nudDepth.TabIndex = 7;
+            this.nudDepth.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // lblDepth
+            // 
+            this.lblDepth.AutoSize = true;
+            this.lblDepth.Location = new System.Drawing.Point(5, 269);
+            this.lblDepth.Name = "lblDepth";
+            this.lblDepth.Size = new System.Drawing.Size(36, 13);
+            this.lblDepth.TabIndex = 8;
+            this.lblDepth.Text = "Depth";
             // 
             // OthelloGameForm
             // 
@@ -300,8 +300,9 @@ namespace AI_Snake
             this.Controls.Add(this.pnlOptions);
             this.KeyPreview = true;
             this.Name = "OthelloGameForm";
-            this.Text = "Damian\'s Snake Game With AI";
+            this.Text = "Othello";
             this.pnlOptions.ResumeLayout(false);
+            this.pnlOptions.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -312,6 +313,7 @@ namespace AI_Snake
             this.pnlGame.PerformLayout();
             this.stsGame.ResumeLayout(false);
             this.stsGame.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDepth)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -322,7 +324,6 @@ namespace AI_Snake
         private System.Windows.Forms.Panel pnlGame;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radP1BW;
-        private System.Windows.Forms.RadioButton radP1Player;
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.NumericUpDown nudTimerSpeed;
@@ -335,9 +336,10 @@ namespace AI_Snake
         private CheckBox chkP2AB;
         private RadioButton radP2Other;
         private RadioButton radP2BW;
-        private RadioButton radP2Player;
         private Button btnExecAI;
         private ToolStripStatusLabel lblStatus;
+        private Label lblDepth;
+        private NumericUpDown nudDepth;
     }
 }
 

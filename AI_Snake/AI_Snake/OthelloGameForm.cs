@@ -141,22 +141,20 @@ namespace AI_Snake
                 if (radP1Other.Checked)
                     MiniMax.heur = 1;
                 if (chkP1AB.Checked)
-                    gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMaxAlphaBeta(game, gameState, 5, gameState.WhosTurn == 1));
+                    gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMaxAlphaBeta(game, gameState, (int)nudDepth.Value, gameState.WhosTurn == 1));
                 else
-                    gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMax(game, gameState, 5, gameState.WhosTurn == 1));
-
+                    gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMax(game, gameState, (int)nudDepth.Value, gameState.WhosTurn == 1));
             }
-            else if (gameState.WhosTurn == 2) //p2
+            else if (gameState.WhosTurn == 2) // p2
             {
                 if (radP2BW.Checked)
                     MiniMax.heur = 0;
                 if (radP2Other.Checked)
                     MiniMax.heur = 1;
                 if (chkP2AB.Checked)
-                    gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMaxAlphaBeta(game, gameState, 5, gameState.WhosTurn == 1));
+                    gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMaxAlphaBeta(game, gameState, (int)nudDepth.Value, gameState.WhosTurn == 1));
                 else
-                    gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMax(game, gameState, 5, gameState.WhosTurn == 1));
-
+                    gameState = (OthelloGameState)game.makeMove(gameState, gameState.WhosTurn, mm.miniMax(game, gameState, (int)nudDepth.Value, gameState.WhosTurn == 1));
             }
 
             drawGame();
